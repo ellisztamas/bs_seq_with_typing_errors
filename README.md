@@ -26,7 +26,7 @@ See the README file in the data folder for more details.
 
 - `01_data` gives raw reads and fasta files to align to.
 - `02_library` contains functions and scripts taking arguments, that are subsequently applied to data
-- `03_processing` contains scripts to prepare genomes for mapping, aligning reads to those genomes, and calculating methylation across the genome.
+- `03_processing` contains scripts to prepare genomes for mapping, aligning reads to those genomes, and calculating methylation across the genome. Note that most of this is done on the `scratch-cbe` partition of CLIP.
 - `04_analysis` runs the analyses and prepares figures for the manuscript
 - `05_manuscript` contains Latex files to compile the manuscript
 
@@ -52,6 +52,15 @@ Install it on your machine with:
 conda env create -f environment.yml
 ```
 Scripts contain code to load the environment, but you may need to change 
+
+### epiclinestools
+
+The analysis uses functions from the custom Python package (https://epiclinestools.readthedocs.io/en/latest/)[epiclinestools].
+In theory it ought to install as part of the conda environment described above, but this can be finicky.
+If it fails, try
+```
+pip install git+https://github.com/ellisztamas/epiclinestools.git#egg=argh
+```
 
 ## Author information
 

@@ -15,6 +15,8 @@ work
 
 # Dumping folder for SLURM output
 slurm
+*out
+*err
 
 # Created by https://www.toptal.com/developers/gitignore/api/r,python,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=r,python,visualstudiocode
