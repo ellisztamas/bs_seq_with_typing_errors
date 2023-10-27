@@ -1,0 +1,3 @@
+Scripts to filter dubious reads from aligned BAM files.
+
+Dubious reads are those on which every cytosine is methylated.
