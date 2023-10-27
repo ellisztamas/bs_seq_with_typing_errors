@@ -1,0 +1,26 @@
+name: epiclines
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.9.6
+  - ipykernel
+  - pandas
+  - numpy
+  - scipy
+  - seaborn
+  - pytest
+  - bismark>=24.0
+  - fastqc
+  - trim-galore
+  - multiqc
+  - fastq-screen
+  - bcftools
+  - picard
+  - pip
+  - samtools
+  - pysam
+  - pip:
+    - biopython
+    - git+https://github.com/ellisztamas/epiclinestools.git#egg=argh
