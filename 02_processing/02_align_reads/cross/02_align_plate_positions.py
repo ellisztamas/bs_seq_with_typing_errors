@@ -48,4 +48,4 @@ sample_positions = epi.align_fastq_with_plate_positions(
 #     insert(3, 'genome', "01_data/03_reference_genome/TAIR10_wholeGenome_withVectors.fasta")
 # Write to disk.
 sample_positions.\
-    to_csv('03_processing/02_align_reads/cross_sample_sheet.csv', index=False)
+    to_csv('02_processing/02_align_reads/cross_sample_sheet.csv', index=False)

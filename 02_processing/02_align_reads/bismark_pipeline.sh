@@ -53,7 +53,7 @@
 # --read2 $read2 \
 # --genome $genome \
 # --work $scratch \
-# --outdir 03_processing/02_map_resequenced_f2s/output \
+# --outdir 02_processing/02_map_resequenced_f2s/output \
 # --trim_galore_args "--clip_r1 15 --clip_r2 15 --three_prime_clip_R1 9 --three_prime_clip_R2 9 --cores 4" \
 # --bismark_args "--local --non_directional --strandID"
 

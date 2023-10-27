@@ -19,8 +19,8 @@
 #SBATCH --time=4:00:00
 #SBATCH --mem=40gb
 #SBATCH --array=0-99
-#SBATCH --output=03_processing/02_align_reads/cross/slurm/%x-%a.out
-#SBATCH --error=03_processing/02_align_reads/cross/slurm/%x-%a.err
+#SBATCH --output=02_processing/02_align_reads/cross/slurm/%x-%a.out
+#SBATCH --error=02_processing/02_align_reads/cross/slurm/%x-%a.err
 
 module load build-env/f2022
 module load anaconda3/2023.03
