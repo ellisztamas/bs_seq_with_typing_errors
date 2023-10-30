@@ -154,6 +154,9 @@ We find that when errors are modelled appropriately they need not hinder the use
 
 \subsection{Desrcibe the problem}
 
+\begin{figure}
+    \includegraphics[]{figure1.eps}
+    \
 fig 1:
     A: 3 Bar plots for conversion rate, with PCR cycles on x axis, colours for concentration transposase
     B: errors across the read for one sample of each
@@ -379,6 +382,11 @@ with 1 degree of freedom.
 We can likewise modify the likelihood calculations of methylation statuses to include distributions of error rates.
 In this case we define distinct prior distributions for the expected distribution of true methylation under different scenarios, and calculate the support for each.
 For example, it is reasonable to expect that unmethylated DNA has a true methylation rate very close to zero, and hence we might define parameters for $\Pr(\theta)$ that give values very small means.
+
+\section{Ackowledgements}
+
+We thank Robert Schmitz, Dieter Weichenhan and members of the Nordborg group for discussion of the results.
+We specifically thank Yoav Voichek for technical assistance on how to disembowel SAM files.
 
 \printbibliography %Prints bibliography
 
