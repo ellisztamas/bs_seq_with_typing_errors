@@ -18,6 +18,10 @@ dubious: str
 
 Return
 ======
+A BAM file with completely methylated reads removed
+A BAM files with the filtered reads.
+
+Both retain the headers of the input.
 
 """
 

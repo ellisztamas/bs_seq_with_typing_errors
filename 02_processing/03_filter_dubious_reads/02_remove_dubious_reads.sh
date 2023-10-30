@@ -50,11 +50,11 @@ discarded_bam=`basename ${infile/sortedByPos.bam/discarded.bam}`
 
 # Convert back to BAM and index
 samtools view -bhf 0x2 $samdir/$filtered_sam > $filtered_dir/$filtered_bam
-samtools sort -o $filtered_dir/$filtered_bam $filtered_dir/$filtered_bam
+samtools sort -no $filtered_dir/$filtered_bam $filtered_dir/$filtered_bam
 samtools index $filtered_dir/$filtered_bam
 
 samtools view -bhf 0x2 $samdir/$discarded_sam > $discard_dir/$discarded_bam
-samtools sort -o $discard_dir/$discarded_bam $discard_dir/$discarded_bam
+samtools sort -no $discard_dir/$discarded_bam $discard_dir/$discarded_bam
 samtools index $discard_dir/$discarded_bam
 
 # tidy up
