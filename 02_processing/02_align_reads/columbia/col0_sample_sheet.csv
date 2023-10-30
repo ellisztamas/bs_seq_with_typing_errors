@@ -1,0 +1,5 @@
+sample,fastq_1,fastq_2
+Col0_05_15X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_15X_R2_001.fastq.gz
+Col0_10_15X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_15X_R2_001.fastq.gz
+Col0_05_13X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_13X_R2_001.fastq.gz
+Col0_10_13X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_13X_R2_001.fastq.gz

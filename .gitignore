@@ -4,10 +4,11 @@
 !01_data/**/*sh
 !01_data/**/*.md
 
-# Ignore output folder, except for script files
-04_output
-!04_output/*sh
-!04_output/**/*sh
+# Ignore sequence files
+*bam
+*sam
+*fastq.qz
+*bam.bai
 
 # Nextflow files
 work

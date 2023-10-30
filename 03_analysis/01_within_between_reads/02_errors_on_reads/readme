@@ -1,0 +1,10 @@
+Scripts to dissect reads from aligned BAM files to examine the distribution
+of cytosine non-conversion within and between reads.
+
+- 01_count_errors.py goes through each read in a SAM file and calculates the
+    proportion of methylated cytosines, and bins each value into quantiles.
+- 02_count_error_positions.py oes through each read in a SAM file and records
+    at which positions non-converted cytosines are found.
+- Scripts 03 to 05 apply the Python scripts to samples for the Arabidopsis
+    reference strain, Drosophila, and the NEB Lambda phage.
+- Scripts 6 and 7 plot the results.

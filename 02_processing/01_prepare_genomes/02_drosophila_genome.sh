@@ -15,7 +15,7 @@ module load anaconda3/2023.03
 source ~/.bashrc
 conda activate epiclines
 
-outdir=03_processing/01_prepare_genomes/drosophila/
+outdir=02_processing/01_prepare_genomes/drosophila/
 mkdir -p $outdir
 # Concatenate the D. melanogaster genome to the control DNA vectors and two bacteria
 cat 01_data/06_fly_genome/GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.fna \
