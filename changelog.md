@@ -1,6 +1,17 @@
 # Change log
 
+## Attempt to fix read filtering
+
+30th October 2023
+
+Added scripts to get cytosine reports for the bam files with highly methylated 
+reads removed.
+
+This didn't work, because reads are not paired. Changing the call to samtools
+sort with the -n flag didn't fix it. More work needed.
+
 ## Restructure analysis folder
+30th October 2023
 
 Rearranged analysis folder to group things by the figure they belong to:
 
@@ -31,7 +42,7 @@ Rearranged analysis folder to group things by the figure they belong to:
 
 ## Plot figure 1
 
-20th October 2023
+30th October 2023
 
 Added scripts to calculated conversion rates, and assess non-concversion within
 and across reads.
