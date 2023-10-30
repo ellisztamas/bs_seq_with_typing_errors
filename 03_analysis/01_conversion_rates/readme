@@ -1,0 +1,14 @@
+Scripts to calculate overall methylation levels on each chromosome of the 
+Columbia and Drosophila samples.
+
+`01_conversion_rate.py` is a Python script to run this.
+`02_conversion_rate.sh` is a BASH script to apply the function across samples.
+
+For each sample this returns a CSV file listing:
+
+1. Chromosome name,
+2. Sequence context (this will be total methylation only, ignoring CG, CHG and CHH contexts),
+3. Proportion of methylated reads across cytosines
+4. Proportion of unmethylated reads across cytosines
+5. Number of cytosines
+6. Total number of reads
