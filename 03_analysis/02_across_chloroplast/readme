@@ -1,0 +1,5 @@
+Scripts to plot variation in cytosine non-conversion across the Arabidopsis chloroplast
+
+- 01_mC_in_windows.py is a generic script to do this.
+- 02_coumbia applies this to data for Arabidopsis accession Col-0.
+- 03_plot_figure2.R plots the results
