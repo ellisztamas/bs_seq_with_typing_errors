@@ -23,6 +23,9 @@ outdir=01_data/genomes
 # Download *A. thaliana* reference genome*
 fasta=https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_chromosome_files/TAIR10_chr_all.fas.gz
 wget -P $outdir $fasta
+# *A. thaliana* Annotation file
+at_annotation=https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_gff3/TAIR10_GFF3_genes_transposons.gff
+wget -P $outdir/TAIR10_gff3 $at_annotation
 
 # Download D. melanogaster reference genome 6 to a temporary directory
 download_link='https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/215/GCF_000001215.4_Release_6_plus_ISO1_MT/GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.fna.gz'

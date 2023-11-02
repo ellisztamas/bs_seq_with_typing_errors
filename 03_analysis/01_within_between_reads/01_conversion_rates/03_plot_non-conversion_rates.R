@@ -1,7 +1,7 @@
 library('tidyverse')
 
 # Non-conversion rates in Columbia
-col0_files <- Sys.glob('03_analysis/01_conversion_rates/output/Col0*')
+col0_files <- Sys.glob('03_analysis/01_within_between_reads/01_conversion_rates/output/Col0*')
 col0 <- lapply(col0_files, read_csv, col_types = "cciii") %>%
   do.call(what = 'rbind') %>%
   filter(
@@ -15,7 +15,7 @@ col0 <- lapply(col0_files, read_csv, col_types = "cciii") %>%
   select(organism, filename, meth)
 
 # Non-conversion rates on drosophila samples
-fly_files <- Sys.glob('03_analysis/01_conversion_rates/output/Fly*')
+fly_files <- Sys.glob('03_analysis/01_within_between_reads/01_conversion_rates/output/Fly*')
 flies <- vector('list', length = length(fly_files))
 for( i in 1:length(fly_files) ){
   flies[[i]] <- read_csv(fly_files[[i]], col_types = 'cciii') %>%
@@ -36,7 +36,7 @@ flies <- flies %>%
   )
 
 # Non-conversion rates for the Lambda phage
-lambda_files <- Sys.glob('03_analysis/01_conversion_rates/output/*csv')
+lambda_files <- Sys.glob('03_analysis/01_within_between_reads/01_conversion_rates/output/*csv')
 lambda <- lapply(lambda_files, read_csv, col_types = "cciii") %>%
   do.call(what = 'rbind') %>%
   filter(

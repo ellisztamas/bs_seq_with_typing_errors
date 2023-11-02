@@ -34,19 +34,23 @@ import_error_counts <- function(filename){
 
 
 # Data from Columbia
-col0_files <- Sys.glob("03_analysis/02_errors_on_reads/output/Col0*counts.csv")
+col0_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/Col0*counts.csv")
 col0 <- lapply(col0_files, import_error_counts) %>%
   do.call(what = 'rbind') %>%
   mutate(filename = str_extract(filename, "Col0_[0-5]{2}_1[35]X"))
 # Data from Drosophila
-fly_files <- Sys.glob("03_analysis/02_errors_on_reads/output/Fly*counts.csv")
+fly_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/Fly*counts.csv")
 flies <- lapply(fly_files, import_error_counts) %>%
   do.call(what = 'rbind') %>%
   mutate(filename = str_extract(filename, "Fly._[0-5]{2}_1[35]X"))
 # Data on Lambda phage DNA included in each sample as a control.
-lambda_files <- Sys.glob("03_analysis/02_errors_on_reads/output/lambda*counts.csv")
+lambda_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/lambda*counts.csv")
 lambda <- lapply(lambda_files, import_error_counts) %>%
   do.call(what = 'rbind')
+
+rbind(col0, flies, lambda) %>%
+  filter( quantile == '0') %>%  pull(count) %>%  mean
+
 
 
 list_error_counts <- list(

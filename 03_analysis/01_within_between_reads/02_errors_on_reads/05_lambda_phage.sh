@@ -11,8 +11,8 @@
 #SBATCH --time=1:00:00
 #SBATCH --mem=10gb
 #SBATCH --array=0-11
-#SBATCH --output=03_analysis/02_errors_on_reads/slurm/%x-%a.out
-#SBATCH --error=03_analysis/02_errors_on_reads/slurm/%x-%a.err
+#SBATCH --output=03_analysis/01_within_between_reads/slurm/%x-%a.out
+#SBATCH --error=03_analysis/01_within_between_reads/slurm/%x-%a.err
 
 module load build-env/f2022
 module load anaconda3/2023.03
@@ -25,7 +25,7 @@ files=(02_processing/02_align_reads/columbia/output/sorted/*Col0*bam 02_processi
 
 # SAM files
 echo "Creating the SAM files."
-samdir=03_analysis/02_errors_on_reads/tmp/
+samdir=03_analysis/01_within_between_reads/tmp/
 mkdir -p $samdir
 infile=${files[$SLURM_ARRAY_TASK_ID]}
 samfile=lambda_`basename ${infile/sortedByPos.bam/.sam}`
@@ -33,16 +33,16 @@ samtools view -f 0x2 -h $infile 'Lambda' > $samdir/$samfile
 
 # Find the error positions
 echo "Running the script to find error positions"
-outdir=03_analysis/02_errors_on_reads/output
+outdir=03_analysis/01_within_between_reads/02_errors_on_reads/output
 mkdir -p $outdir
 positions=${samfile/.sam/_positions.csv}
 counts=${samfile/.sam/_counts.csv}
 
-python 03_analysis/02_errors_on_reads/01_count_errors.py \
+python 03_analysis/01_within_between_reads/01_count_errors.py \
 --input $samdir/$samfile \
 --output $outdir/$counts
 
-python 03_analysis/02_errors_on_reads/02_count_error_positions.py \
+python 03_analysis/01_within_between_reads/02_count_error_positions.py \
 --input $samdir/$samfile \
 --output $outdir/$positions
 

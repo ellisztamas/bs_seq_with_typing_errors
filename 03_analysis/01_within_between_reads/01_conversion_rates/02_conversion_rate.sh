@@ -14,8 +14,8 @@
 # Tom Ellis, 30th October 2023
 
 #SBATCH --job-name=non-conversion_rates
-#SBATCH --output=03_analysis/01_conversion_rates/slurm/%x-%a.out
-#SBATCH --error=03_analysis/01_conversion_rates/slurm/%x-%a.err
+#SBATCH --output=03_analysis/01_within_between_reads/01_conversion_rates/slurm/%x-%a.out
+#SBATCH --error=03_analysis/01_within_between_reads/01_conversion_rates/slurm/%x-%a.err
 #SBATCH --qos=rapid
 #SBATCH --time=1:00:00
 #SBATCH --mem=30gb
@@ -31,12 +31,12 @@ date
 files=(02_processing/02_align_reads/**/output/reports/[CF]*CX_report.txt.gz)
 infile=${files[$SLURM_ARRAY_TASK_ID]}
 
-outdir=03_analysis/01_conversion_rates/output
+outdir=03_analysis/01_within_between_reads/01_conversion_rates/output
 mkdir -p $outdir
 
 outfile=$(basename ${infile/CX_report.txt.gz/conversion.csv})
 
-python 03_analysis/01_conversion_rates/01_conversion_rate.py \
+python 03_analysis/01_within_between_reads/01_conversion_rates/01_conversion_rate.py \
     --input $infile \
     --output $outdir/$outfile
 
