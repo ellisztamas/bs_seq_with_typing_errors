@@ -17,8 +17,6 @@ print("Importing coverage file.")
 path = "02_processing/02_align_reads/columbia/output/reports/Col0_05_13X.CX_report.txt.gz"
 cx_report = epi.CytosineCoverageFile(path)
 
-
-
 # METHYLATION ON GENE BODIES
 # annotated genes in tair10
 print("Count methylated reads over gene bodies.")
