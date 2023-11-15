@@ -170,7 +170,7 @@ We find that when errors are modelled appropriately they need not hinder the use
 We investigated how and where cytosine non-conversion errors occur in plant, fly and viral DNA.
 We prepared bisulphite libraries for samples of the \textit{Arabidopsis thaliana} reference accession \textit{Columbia} (Col-0), \textit{Drosophila melanogaster} and the Lambda phage.
 Plant chloroplasts, fruit flies and this virus lack cytosine methylation, so any unconverted cytosines we observe must be erroneous.
-For \textit{Arabidopsis} we focussed on the first half of the chloroplast, beceuase the second half shows strong homology with one of the autosomes.
+For Arabidopsis we focussed on the first half of the chloroplast, because the second half shows strong homology with one of the autosomes.
 To identify possible technical artefacts we modified the strand-displacement protocol described by \textcite{weichenhan2018tagmentation} to use two concentrations of transposase, and either 13 or 15 PCR cycles.
 Overall cytosine non-conversion rates were very high, ranging from a few percent up to more than 17\% (figure \ref{fig:reads}A).
 There was substantial variation between libraries, but there was no consistent effect of species, transposase concentration or number of PCR cycles.
@@ -190,8 +190,8 @@ This pattern must be due to reads with only partial non-conversion, since fully 
 
 There is also some evidence that non-conversion errors depend on strand.
 Bisulphite libraries typically distinguish between four strands: the original top and bottom strands (OT, OB), and the strands complementary to the original strands that are synthesised during PCR (complementary to original top (CTOT) and complementary to original bottom, (CTOB)).
-In the \textit{Arabidopsis} and Lambda phage samples there is a slight tendency for the top strands to have increased errors than the bottom strands, and for the complementary strands to have increased errors compared to the corresponding original strands.
-In the \textit{Drosophila} samples there also appears to be a periodicity in the probabilities of non-conversion every five bases on the OB and CTOB strands only.
+In the Arabidopsis and Lambda phage samples there is a slight tendency for the top strands to have increased errors than the bottom strands, and for the complementary strands to have increased errors compared to the corresponding original strands.
+In the Drosophila samples there also appears to be a periodicity in the probabilities of non-conversion every five bases on the OB and CTOB strands only.
 The reasons for this potential strand specificity remain unclear.
 
 In summary, these results indicate that non-conversion errors occur at high frequency in samples from diverse organisms. It appears that affected reads result from two distinct processes that generate completely and partially unconverted reads.
@@ -201,18 +201,17 @@ In summary, these results indicate that non-conversion errors occur at high freq
 \begin{figure}
     \includegraphics{figure2.eps}
     \caption{
-        Variation in cytosine non-conversion across the first half of the chloroplast in four independent replicate library preparations of the \textit{Arabidopsis} accession Col-0.
+        Variation in cytosine non-conversion across the first half of the chloroplast in four independent replicate library preparations of the Arabidopsis accession Col-0.
         (A) 150bp windows across the chloroplast.
-        (B) Across annotated features on the chloroplast.
-        (C) Relationship between non-conversion and coverage per base.
-        (D) Relationship between non-conversion and GC content.
+        (B) Relationship between non-conversion and coverage per base.
+        (C) Relationship between non-conversion and GC content.
     }
     \label{fig:uncertainty}
 \end{figure}
 
 Taking the average cytosine non-conversion rate on control DNA gives a point estimate of the genome-wide non-conversion rate, but this might mask variation in error rates between sites.
-To investigate this we estimated non-conversion rates in 150bp windows across the \textit{Arabidopsis} chloroplast.
-We found substantial variation in cytosine non-conversion across the \textit{Arabidopsis} chloroplast, in cases as much as five-fold between windows (figure \ref{fig:uncertainty}A).
+To investigate this we estimated non-conversion rates in 150bp windows across the Arabidopsis chloroplast.
+We found as much as five-fold variation in cytosine non-conversion between windows with remarkable consistency between samples (figure \ref{fig:uncertainty}A).
 One explanation for this is that there is much less data per window than for the whole chloroplast, so estimates at any individual window will have larger standard errors, inflating the variance between windows.
 However, the observed variance between windows was 6.4-fold greater than between simulated draws from a binomial distribution using the observed coverage at each window as the number of trial and the global mean non-conversion rate as the mean (figure?).
 Moreover, Spearman correlation coefficients ($\rho$) between replicates ranged from 0.71 to 0.84, showing that the pattern was remarkably consistent between technical replicates of the library preparation protocol.
@@ -229,20 +228,32 @@ In summary, it appears that non-conversion errors vary between regions of the ge
 
 \subsection{Methylation estimates depend more on sample size than non-conversion errors}
 
-fig:
-    deterministic error rates
-    simulation, showing data without errors, data with known errors, data with best guess, estimate accounting for uncertainty
-    Plot variance for ibid as a function of coverage
+\begin{figure}
+    \caption{
+        deterministic error rates
+        simulation, showing data without errors, data with known errors, data with best guess, estimate accounting for uncertainty
+        Plot variance for ibid as a function of coverage
+    }
+\end{figure}
 
+Estimates of average methylation reflect a binomial sampling process of converted and unconverted cytosines.
+(Non-)conversion errors will bias this sampling process in two ways.
+First, non-conversion of truly unmethylated cytosines will inflate apparent methylation.
+Second, incorrect conversion of truly methylated cytosines will decrease apparent methylation.
+In this study we focus on the former, but note that the latter process is distinctly plausible.
+These two processes have the strongest effects when true methylation level is close to zero and one respectively.
+Since these errors are statistical rather than biological, we can account for them by allowing for the probabilities of errors in the binomial sampling process (see section \ref{sec:binomial-with-errors}).
+Given a good estimate of error rates, it is straightforward to correct the estimate of mean methylation precisely.
 
-Estimating mean methylation is a binomial process
-We can account for errors by allowing observed state of methylated and unmethylated reads to be correct or incorrect.
-We model the probability that (1) truly unmethylated cytosines appear methylated (false non-conversion) or (2) truly methylated cytosines appear unmethylated (false converion; see Materials and Methods for full details).
-These sources of error have the strongest effects when mean methylation is close to zero and one respectively (figure \ref{fig:}).
-The true mean methylation level accounting for these error rates can then be estimated algebraicly (see Materials and Methods).
-Can also estimate it accounting for uncertainty in theta.
+However, this correction is complicated by two practical concerns.
+First, as noted above, there seems to be substantial variation in error rates between windows of the chloroplast.
+If we try to use the chloroplast to gauge error rates at the rest of the genome, this implies that there is substantial uncertainty around the error rate at any specific window.
+This will tend to overestimate true methylation when the error rate is above the mean error rate, and vice versa.
+Second, the binomial sampling process itself introduces uncertainty about true methylation level, especially for small regions and/or when coverage is low.
+Wrap up sentence needed here once I've done a figure.
 
-To investigate how this works we simulated data.
+To investigate the practical significance of conversion errors and binomial sampling on estimates of mean methylation we simulated methylation on transposable elements in the presence of errors, and attempt to recover true methylation levels.
+We simulated 
 We simulated loci of 250 cytosines, corresponding to TE's of 1000 bp, because the mean is 798.
 Mean methylation of 0.15, because this is realistic for TEs and fairly close to the error distribution.
 At each locus we drew and error rate from a Beta
@@ -263,17 +274,26 @@ As long as you sum enough, conversion errors don't matter.
 
 Fig: Three panels showing calls on chloroplast, TEs and genes.
 
-Differences in methylation are often due to the effects distinct biological pathways
-For example, Zhang et al split genes into unmethylated 
-In this case it makes more sense to describe the state
-For example, Zhang et al. distinguish unmethylated, CG- and TE-like methylation
+In some applications it makes more sense to classify a discrete methylation 'state', rather than quantify methylation level.
+For example, it might often make more sense to classify a region as methylated or unmethylated, reflecting whether the region is targetted by silencing machinery or not.
+To illustrate this we categorised methylation status of regions of the Arabidopsis genome based on a model of methylation homeostasis posited by \textcite{zhang2020natural}.
+In plants, cytosines can be methlylated in all three sequence contexts (CG, CHG and CHH, where H is any nucleotide except G) maintained by multiple pathways (\cite{law2010establishing}).
+Although much of the Arabidopsis genome is unmethylated, some genes display 'gene-body methylation' characterised by methylation of CG sites, whose origin and function is hotly debated (\cite{muyle2022gene}). 
+Transposable elements are associated with methylation in all three of these contexts (\cite{cokus2008shotgun, lister2008highly}).
+\textcite{zhang2020natural} describe a model of methylation homeostasis that posits a continuum from non-methylation (um) to gene-body-like methylation (gbm) to TE-like methylation (TEm).
+Since these three states are likeley maintained by distinct biological pathways it makes sense to model them as distinct methylation states, and will often be easier to work with than potentially noisy, overdispersed quantitative data.
 
-Gaut and pals do something, but it's not ideal
-We can do better by modelling the probability that methylation in each context
-comes from the error process, or from an alternative process with more methylation
-than that.
+We categorised methylation status for bisulphite in the presence of substantial non-conversion errors in our Arabidopsis samples.
+We apply a model that compares the evidence that the counts of observed (un)converted reads in the three sequence contexts are consistent with non-conversion errors only, or a mixture of errors and real cytosine methylation (see \ref{sec:meth-state}).
+We used this model to call methylation state on (1) windows of the chloroplast, (2) coding genes, and (3) annotated transposable elements known to be actively regulated by the CMT2 and RdDM pathways (\cite{stroud2013comprehensive}).
+These regions represent regions likely to be in the unmethylated, gene-body-methylated (at least partially; \cite{zhang2020natural}) and TE-like methylation states respectively.
 
+Add results here
+Count how often you get ambiguous calls
+Does it make a difference if we do hard calls or not?
 
+This has the advantage that we need only know $a_{\lambda1}$ and $b_{\lambda2}$, and should be sufficient to distinguish 'low' and 'high' methylation as long as true methylation is not very close to the non-conversion error rate.
+However, if prior information about the distribution of true methylation level is available, this can easily be incorporated with a suitable paramterisation of $g(.)$.
 
 \section{Discussion}
 
@@ -285,8 +305,11 @@ More likely to be to do with the strand displacement/gap repair step, which diff
 dNTPS with mC are being incorporated, for example via repair of single-strand nicks.
 PCR bias?
 
-
 Discuss \cite{lu2015improved} and \cite{suzuki2018whole}'s solution's to the problem
+
+Discuss Gaut's CG shenanigans
+
+For calling methylation status there is potential to use other distributions.
 
 \section{Materials and Methods}
 
@@ -294,9 +317,9 @@ Discuss \cite{lu2015improved} and \cite{suzuki2018whole}'s solution's to the pro
 
 \subsection{Statistical models to accounts for conversion errors}
 
-\subsubsection{Error rates in a binomial model}
+\subsubsection{Error rates in a binomial model} \label{sec:binomial-with-errors}
 
-Methylation pipelines tell us that of a total of $n$ reads mapping to a region of a genome, we observe $y$ reads mapping to methylated cytosines and $n-y$ reads mapping to unmethylated cytosines. The goal is to estimate the true mean methylation level $\theta$ which generated these data, accounting for conversion errors.
+Given an alignment of bisulphite-converted reads to a genome we observe a total of $n$ reads mapping to genomics cytosines within a given region. Of these, $y$ reads are observed to be unconverted cytosines and $n-y$ reads appear as converted thymines. The goal is to estimate the true mean methylation level $\theta$ which generated these data, accounting for conversion errors.
 
 In the absence of errors, the likelihood of the data given $\theta$ is binomially distributed as
 \begin{equation}
@@ -307,9 +330,9 @@ with mean $\theta=y/n$.
 Data are not perfect, so we would like to incorporate two error terms:
 \begin{itemize}
     \item $\lambda_1$ is the probability that an unmethylated cytosine appears methylated (the bisulphite non-conversion rate).
-    \item $\lambda_2$ is the probability that a methylated cytosine appears unmethylated.
+    \item $\lambda_2$ is the probability that a methylated cytosine appears unmethylated, which we include for completeness.
 \end{itemize}
-Cytosines observed to be methylated may thus be either truly methylated with probability $\theta(1-\lambda_2)$ or truly unmethylated with probability $(1-\theta)\lambda_1$. Likewise, a cytosine observed to be unmethylated may be either truly unmethylated with probability $(1-\theta)(1-\lambda_1)$ or truly methylated with probability $\theta \lambda_2$.
+Reads observed as cytosines may thus be either truly methylated with probability $\theta(1-\lambda_2)$ or truly unmethylated with probability $(1-\theta)\lambda_1$. Likewise, reads observed as thymine may be either truly unmethylated with probability $(1-\theta)(1-\lambda_1)$ or truly methylated with probability $\theta \lambda_2$.
 This changes the likelihood to
 \begin{equation}
     \label{eqn:binom-with-errors}
@@ -318,33 +341,31 @@ This changes the likelihood to
     [\theta(1-\lambda_2) + (1-\theta)\lambda_1]^y
     [\theta \lambda_2 + (1-\theta)(1-\lambda_1)]^{n-y}
 \end{equation}
-Summarising $p=[\theta(1-\lambda_2) + (1-\theta)\lambda_1]$ for brevity, this has a closed-form maximum-likelihood estimate
+Summarising $p=[\theta(1-\lambda_2) + (1-\theta)\lambda_1] = y/n$ for brevity, this has a closed-form maximum-likelihood estimate
 \begin{equation}
     \label{eqn:ml-theta}
     \hat{\theta} = \frac{\lambda_1-p}{\lambda_1 + \lambda_2 -1}
 \end{equation}
+Note that $\hat{\theta}<0$ when $\lambda_1 > \theta$ and $\hat{\theta}>1$ when $\lambda_2 > (1-\theta)$, which are not valid results
+In these cases we set $\hat{\theta}$ to zero and one respectively.
 
-\subsubsection{Uncertainty in error rates}
+\subsubsection{Mean methylation when error rates vary} \label{sec:mean-as-beta}
 
 The above formulation is valid for the case where there is a clear point estimate for error rates.
 If there is substantial uncertainty around these estimates values, and especially if they are likely to vary across the genomes, then the $\theta$ and error rates can be modelled as coming from Beta distributions with shape parameters $a$ and $b$:
-\begin{equation}
-    \theta \sim \textrm{Beta}(a_{\theta}, b_{\theta})
-\end{equation}
-\begin{equation}
-    \lambda_1 \sim \textrm{Beta}(a_{\lambda_1}, b_{\lambda_1})
-\end{equation}
-\begin{equation}
-    \lambda_2 \sim \textrm{Beta}(a_{\lambda_2}, b_{\lambda_2})
-\end{equation}
-The distributions over $\Pr(\theta)$, $\Pr(\lambda_1)$ and $\Pr(\lambda_2)$ represent prior distributions of $\theta$ and error rates, and can be estimated from other data.
+$$ \theta \sim \textrm{Beta}(a_{\theta}, b_{\theta}) $$
+$$ \lambda_1 \sim \textrm{Beta}(a_{\lambda_1}, b_{\lambda_1}) $$
+$$ \lambda_2 \sim \textrm{Beta}(a_{\lambda_2}, b_{\lambda_2}) $$
+The distributions over $\theta$, $\lambda_1$ and $\lambda_2$ represent prior distributions of $\theta$ and error rates, and can be estimated from other data.
 For example, $\lambda_1$ can be estimated by counting the proportion of all unconverted cytosines in windows of DNA that is known to be unmethylated to get a distribution of error rates, and taking mean $\bar{x}$ and variance $\sigma^2_x$ of these estimates.
-The shape parameters of the Beta distribution for $\Pr(\lambda_1)$ can be calculated by method-of-moments as
+The shape parameters of the Beta distribution for $\lambda_1$ can be calculated by method-of-moments as
 \begin{equation}
     \hat{a}_{\lambda_1} = \bar{x}(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1)
+    \label{eqn:beta-a}
 \end{equation}
 \begin{equation}
-    \hat{b}_{\lambda_1} = 1-\bar{x}(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1) 
+    \hat{b}_{\lambda_1} = (1-\bar{x})(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1) 
+    \label{eqn:beta-b}
 \end{equation}
 
 We can use this information to estimate $\theta$ by integrating out values for error rates.
@@ -359,48 +380,67 @@ The joint posterior distribution of $\theta, \lambda_1, \lambda_2$ is then
 \end{equation}
 where $\pi=\{a_{\theta}, a_{\lambda_1}, a_{\lambda_2}, b_{\theta}, b_{\lambda_1}, b_{\lambda_2}\}$ for brevity.
 The marginal posterior distribution for $\theta$ can be found by integrating over $\Pr(\lambda_1)$ and $\Pr(\lambda_2)$.
-The posterior mean of this distribution is the most probable value of $\theta$ accounting for all possible values of error rates. It ought to be possible to get a closed-form point estimate by setting the first derivative to zero and solving for $\theta$, but I haven't work out how yet.
-
-\subsubsection{Methylation status}
-
-In some cases it may be advantageous to think of DNA methylation as being in particular discrete states.
-For example, [Zhang et al. (2020)](https://www.pnas.org/doi/full/10.1073/pnas.1918172117) present a case that DNA methylation (at least on genes) represents a continuum between unmethylated DNA, TE-like methylation (CG, CHG and CHH methylation), and CG-only methylation.
-In this case it is likely that these states represent the effects of distinct biological pathways, so makes more sense to identify discrete states than to make quantitative estimates of methylation.
-We would thus like to partition the genome into regions that look like each of these contexts.
-
-Given total numbers of apparently methylated and unmethylated reads at each site ($y_{CG}$, $y_{CHG}$ and $y_{CHH}$) and reasonable point estimates of $\lambda_1$ and $\lambda_2$ we can use the estimate of $\hat{\theta}$ from \ref{eqn:ml-theta} above to calculate likelihoods that a window is unmethylated ($L_U$), TE-like methylated ($L_{TEm}$), or CG-methylated ($L_{CG}$):
+This can be simplified if we assume $\lambda_2$ is negligible and modify  equation \ref{eqn:ml-theta} to estimate $\theta$ directly, in which case the expected value for $\theta$ is
 \begin{equation}
-    \label{eqn:lik-unmethylated}
-    L_{U} = 
-    \Pr( y_{CG} | \theta_{CG} =0, \lambda_1, \lambda_2)
-    \Pr(y_{CHG} | \theta_{CHG}=0, \lambda_1, \lambda_2)
-    \Pr(y_{CHH} | \theta_{CHH}=0, \lambda_1, \lambda_2)
-\end{equation}
-\begin{equation}
-    \label{eqn:lik-mCG}
-    L_{CG} = 
-    \Pr( y_{CG} | \theta_{CG}>0, \lambda_1, \lambda_2)
-    \Pr(y_{CHG} | \theta_{CHG}=0, \lambda_1, \lambda_2)
-    \Pr(y_{CHH} | \theta_{CHH}=0, \lambda_1, \lambda_2)
-\end{equation}
-\begin{equation}
-    \label{eqn:lik-TEm}
-    L_{TEm} = 
-    \Pr( y_{CG} | \theta_{CG}>0, \lambda_1, \lambda_2)
-    \Pr(y_{CHG} | \theta_{CHG}>0, \lambda_1, \lambda_2)
-    \Pr(y_{CHH} | \theta_{CHH}>0, \lambda_1, \lambda_2)
+    \hat{\theta} = 
+    \int_0^1 
+    \frac{\lambda_1 - p} {\lambda_1 - 1}
+    \Pr(\theta | \lambda_1) \,d\lambda_1
+    \label{eqn:theta-with-uncertainty}
 \end{equation}
 
-This assumes errors are the same for CG, CHG and CHH sites; this is reasonable because we think errors happen in a tube, not a cell. It is probably sensible to set a minimum bound on the number of CG sites in a window such that you could actually expect to distinguish $\theta_{CG}$ and error rates.
+\subsubsection{Classification of methylation state} \label{sec:meth-state}
 
-One could just take the model with the highest likelihood (better: AIC), and that may well be enough for our purposes. To perform formal likelihood ratio tests we first note that $L_{CG}$ is nested within $L_{TEm}$ and $L_{U}$ is nested within $L_{CG}$. Likelihood ratio tests can then be performed assuming the test statistic under the null is $\chi^2$-distributed 
-with 1 degree of freedom.
+In some cases it makes biological sense to classify the 'state' of a region as methylated or unmethylated rather than quantify methylation level.
+If we assume false conversion errors ($\lambda2$) are negligible, this can be achieved by comparing the evidence that the proportion of unconverted cytosines $p$ is drawn from distribution $f(.)$ generating false non-conversion errors, or from an alternative distribution $g(.)$ that reflects real biological processes.
+$f(.)$ can be modelled as a beta distribution using shape parameters $a_{\lambda1}, b_{\lambda2}$ described above:
+\begin{equation}
+    f(p,a_{\lambda1}, b_{\lambda2}) = 
+    \textrm{Bin}(y|n,p)
+    \textrm{Beta}(p | a_{\lambda1}, b_{\lambda2})
+\end{equation}
+We model $g(.)$ as the cumulative density function of the same beta distribution
+\begin{equation}
+    g(p,a_{\lambda1}, b_{\lambda2}) = 
+    \textrm{Bin}(y|n,p)
+    \Pr( P \leq p | a_{\lambda1}, b_{\lambda2})
+\end{equation}
+which approaches zero when the proportion of unconverted reads is small, and approaches one when the number of unconverted reads is more than can be accounted for by $ f(p,a_{\lambda1}, b_{\lambda2}) $.
+Both terms incorporate the binomial probability of observing the number of unconverted reads given estimated mean and samples size.
 
+We can apply this model to quantify the evidence that a region of DNA is unmethylated (um), gene-body-like methylated (gbm) or TE-like methylated (TEm) based on the observed non-converted reads in the CG, CHG and CHH sequence contexts ($y_{CG}$, $y_{CHG}$ and $y_{CHH}$; H is any nucleotide apart from G).
+In unmethylated DNA all unconverted cytosines are due to non-conversion errors, and hence the likelihood that the region is unmethylated is
+\begin{equation}
+    L_U =
+    f(y_{CG}  | n_{CG},  a_{\lambda1}, b_{\lambda2})
+    f(y_{CHG} | n_{CHG}, a_{\lambda1}, b_{\lambda2})
+    f(y_{CHH} | n_{CHH}, a_{\lambda1}, b_{\lambda2})
+\end{equation}
+In gene-body-like-methylated DNA, CG sites are methylated but CHG and CHH sites are not: 
+\begin{equation}
+    L_{gbm} =
+    g(y_{CG}  | n_{CG},  a_{\lambda1}, b_{\lambda2})
+    f(y_{CHG} | n_{CHG}, a_{\lambda1}, b_{\lambda2})
+    f(y_{CHH} | n_{CHH}, a_{\lambda1}, b_{\lambda2})
+\end{equation}
+In TE-like-methylated DNA cytosines are methylated in all contexts:
+\begin{equation}
+    L_{TEm} =
+    g(y_{CG}  | n_{CG},  a_{\lambda1}, b_{\lambda2})
+    g(y_{CHG} | n_{CHG}, a_{\lambda1}, b_{\lambda2})
+    g(y_{CHH} | n_{CHH}, a_{\lambda1}, b_{\lambda2})
+\end{equation}
 
+\subsection{Simulations}
 
-We can likewise modify the likelihood calculations of methylation statuses to include distributions of error rates.
-In this case we define distinct prior distributions for the expected distribution of true methylation under different scenarios, and calculate the support for each.
-For example, it is reasonable to expect that unmethylated DNA has a true methylation rate very close to zero, and hence we might define parameters for $\Pr(\theta)$ that give values very small means.
+We used simulations to investigate how well we can estimate true mean methylation when observed data are contaminated with non-conversion errors.
+We simulated loci of 800 nucleotides (200 cytosines), corresponding to the average size (798bp) of a transposable element or TE fragment in the \textit{A. thaliana} TAIR10 annotation, with 1, 2, 4, 8, 16 or 32 reads mapping to each cytosine.
+We simulated the conversion state of each read at each cytosine as a binomial process with the total number of trials being the number of cytosines multiplied by coverage per cytosine.
+Following equation \ref{eqn:binom-with-errors} and ignoring false conversion errors, each read may be observed as unconverted with probability $p=\theta + (1-\theta)\lambda_1$, where $\theta$ is the probability that the read is truly methylated and $\lambda1$ is a non-conversion error rate.
+We used $\theta=0.15$ for these simulations, which is both a realistic estimate of TE methylation level (\cite{dubin2015dna}) and close enough to true error rates that the latter are likely to be problematic.
+
+For each locus we drew a value for $\lambda_!$ from a beta distribution describing variation in error rates across the genome (see section \ref{sec:mean-as-beta}).
+To estimate biologically realistic shape parameters for this distribution we estimated the mean and variation in non-conversion rates in 150bp windows across the chloroplast for one of the Arabidopsis samples, and calculated beta shape parameters by method of moments (equations \ref{eqn:beta-a}, \ref{eqn:beta-b}). 
 
 \section{Ackowledgements}
 
