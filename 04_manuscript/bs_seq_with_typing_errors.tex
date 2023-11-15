@@ -229,46 +229,54 @@ In summary, it appears that non-conversion errors vary between regions of the ge
 \subsection{Methylation estimates depend more on sample size than non-conversion errors}
 
 \begin{figure}
+    \includegraphics{figure3.eps}
     \caption{
-        deterministic error rates
-        simulation, showing data without errors, data with known errors, data with best guess, estimate accounting for uncertainty
-        Plot variance for ibid as a function of coverage
+        Estimates of mean methylation in simulated data using different estimates of the non-conversion error rate.
+        Plots show the effect of combining data over 1, 10 or 100 loci with 200 cytosines each for increasing sequencing depth.
+        True methylation is 0.15 for all loci.
+        Error rates for each locus are drawn from a beta distribution with shape parameters $a=17$ and $b=220$.
+        True methylation level is estimated using the true error rate for the simulation and when the error rate is estimated as the mean of the beta distribution.
+        We also show mean methylation for data with zero non-conversion errors.
+        (A) Distribution of estimated means across replicate 200 simulations.
+        (B) Mean deviation from the true value across simulations.
+        Note that points are offset along the x-axis for visual clarity.
     }
+    \label{fig:simulations}
 \end{figure}
 
 Estimates of average methylation reflect a binomial sampling process of converted and unconverted cytosines.
-(Non-)conversion errors will bias this sampling process in two ways.
-First, non-conversion of truly unmethylated cytosines will inflate apparent methylation.
-Second, incorrect conversion of truly methylated cytosines will decrease apparent methylation.
+We aim to estimate this mean with as little bias and sampling variance as possible.
+Non-conversion of truly unmethylated cytosines will bias apparent methylation up and down respectively.
+Likewise, incorrect conversion of truly methylated cytosines will bias methylation downwards.
 In this study we focus on the former, but note that the latter process is distinctly plausible.
-These two processes have the strongest effects when true methylation level is close to zero and one respectively.
 Since these errors are statistical rather than biological, we can account for them by allowing for the probabilities of errors in the binomial sampling process (see section \ref{sec:binomial-with-errors}).
-Given a good estimate of error rates, it is straightforward to correct the estimate of mean methylation precisely.
+Given a good estimate of error rates, it is straightforward adjust estimates to correct these biases.
 
-However, this correction is complicated by two practical concerns.
+However, this correction is complicated by two practical concerns that effectively increase sample variance.
 First, as noted above, there seems to be substantial variation in error rates between windows of the chloroplast.
 If we try to use the chloroplast to gauge error rates at the rest of the genome, this implies that there is substantial uncertainty around the error rate at any specific window.
 This will tend to overestimate true methylation when the error rate is above the mean error rate, and vice versa.
-Second, the binomial sampling process itself introduces uncertainty about true methylation level, especially for small regions and/or when coverage is low.
-Wrap up sentence needed here once I've done a figure.
+Second, the binomial sampling process itself introduces uncertainty about true methylation level.
+This is especially true when the number of 'binomial trials' is small, such as when only a small region of the genome is examined and/or when coverage is low.
+Variation in error rates and sample size should be expected to hinder our ability to estimate mean methylation accurately.
 
-To investigate the practical significance of conversion errors and binomial sampling on estimates of mean methylation we simulated methylation on transposable elements in the presence of errors, and attempt to recover true methylation levels.
-We simulated 
-We simulated loci of 250 cytosines, corresponding to TE's of 1000 bp, because the mean is 798.
-Mean methylation of 0.15, because this is realistic for TEs and fairly close to the error distribution.
-At each locus we drew and error rate from a Beta
-We also summed loci
-This gives biologically realistic data
+We used simulations to investigate the practical significance of conversion errors and binomial sampling on estimates of mean methylation.
+We simulated converted and unconverted read on transposable elements (TEs) of typical size with and without non-conversion errors, and attempt to recover true methylation levels.
+We also summed reads across multiple loci, each with it's own error rate, to reflect summing over multiple TEs in the same region or family (e.g. \cite{sasaki2019common}).
+Inaccuracy for data with no errors (red points in figure \ref{fig:simulations}) reflect variance due to binomial sampling only, and represent the best case scenario for given coverage and number of loci.
+The simulations showed a drop in accuracy compared to these data when conversion errors are introduced but the error rate is known (green).
+This additional error must reflect the additional binomial variance that arises from sampling from both truly methylated and unmethylated reads.
+We found an additional drop in accuracy when the error rate is not known but is estimated (blue).
+This demonstrates that both binomial sampling and uncertainty in the true error rate contribute to uncertainty in true methylation rate.
 
-When error rates are known we can correct for them as well as if there were no errors.
-When errors are not know there is more error
-May or may not be more when we integrate.
-However, binomial sampling is huge
-For small samples variance between estimates is massive even for perfect data
-Statement about change in variance.
-Summing over loci works
-You need to some over about 100 TEs
-As long as you sum enough, conversion errors don't matter.
+Despite this, the effect of error rates on accuracy was much smaller than the effect of increasing sample size.
+The accuracy of estimated means increased dramatically with increased number of trials, either by increasing the number of loci or sequence coverage, including when data are simulated without errors (figure \ref{fig:simulations}).
+This is not surprising in itself, but it is notable that a fairly simple correction for error rates can recover good estimates of mean methylation over thousands of cytosines using modest sequence coverage, even with relatively high non-conversion errors of 5-10\%.
+This implies that the best way to ensure accurate estimates of methylation is to increase sample size, either by increasing sequencing depth or by summing over larger windows or homologous loci.
+Since sequencing depth is typically limited by budgets, the latter option is likely the most practical.
+This also makes biological sense.
+For example, methylation TEs are often targetted and co-regulated by the same pathways, so it makes sense to examine them together.
+Increasing the number of binomial trials is the surest path to accurate estimates of mean methylation, even when errors are common.
 
 \subsection{Reliable imputation of methylation state}
 
@@ -349,57 +357,71 @@ Summarising $p=[\theta(1-\lambda_2) + (1-\theta)\lambda_1] = y/n$ for brevity, t
 Note that $\hat{\theta}<0$ when $\lambda_1 > \theta$ and $\hat{\theta}>1$ when $\lambda_2 > (1-\theta)$, which are not valid results
 In these cases we set $\hat{\theta}$ to zero and one respectively.
 
-\subsubsection{Mean methylation when error rates vary} \label{sec:mean-as-beta}
+\subsubsection{Error rates as a beta distribution} \label{sec:mean-as-beta}
 
 The above formulation is valid for the case where there is a clear point estimate for error rates.
-If there is substantial uncertainty around these estimates values, and especially if they are likely to vary across the genomes, then the $\theta$ and error rates can be modelled as coming from Beta distributions with shape parameters $a$ and $b$:
-$$ \theta \sim \textrm{Beta}(a_{\theta}, b_{\theta}) $$
-$$ \lambda_1 \sim \textrm{Beta}(a_{\lambda_1}, b_{\lambda_1}) $$
-$$ \lambda_2 \sim \textrm{Beta}(a_{\lambda_2}, b_{\lambda_2}) $$
-The distributions over $\theta$, $\lambda_1$ and $\lambda_2$ represent prior distributions of $\theta$ and error rates, and can be estimated from other data.
-For example, $\lambda_1$ can be estimated by counting the proportion of all unconverted cytosines in windows of DNA that is known to be unmethylated to get a distribution of error rates, and taking mean $\bar{x}$ and variance $\sigma^2_x$ of these estimates.
-The shape parameters of the Beta distribution for $\lambda_1$ can be calculated by method-of-moments as
+If there is substantial uncertainty around these estimates, and especially if they are likely to vary across the genomes, then error rates can be modelled as coming from beta distributions with shape parameters $a$ and $b$.
+These shape parameters can be estimated by method-of-moments using estimates of the sample mean $\mu$ and variance $\sigma$ of the distribution.
+For example, one can calculate mena and variance in the proportion of unconverted cytosines across windows of DNA known to be unmethylated.
+Estimates for shape parameters are then:
 \begin{equation}
-    \hat{a}_{\lambda_1} = \bar{x}(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1)
+    \hat{a} = \mu(\frac{\mu(1-\mu)}{\sigma^2}-1)
     \label{eqn:beta-a}
 \end{equation}
 \begin{equation}
-    \hat{b}_{\lambda_1} = (1-\bar{x})(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1) 
+    \hat{b} = (1-\mu)(\frac{\mu(1-\mu)}{\sigma^2}-1) 
     \label{eqn:beta-b}
 \end{equation}
 
-We can use this information to estimate $\theta$ by integrating out values for error rates.
-The joint posterior distribution of $\theta, \lambda_1, \lambda_2$ is then
-\begin{equation}
-    \Pr(\theta, \lambda_1, \lambda_2 | y, \pi)
-    \propto 
-    \Pr(y | \theta, \lambda_1, \lambda_2)
-    \Pr(\theta | a_{\theta}, b_{\theta})
-    \Pr(\lambda_1 | a_{\lambda_1}, b_{\lambda_1})
-    \Pr(\lambda_2 | a_{\lambda_2}, b_{\lambda_2})
-\end{equation}
-where $\pi=\{a_{\theta}, a_{\lambda_1}, a_{\lambda_2}, b_{\theta}, b_{\lambda_1}, b_{\lambda_2}\}$ for brevity.
-The marginal posterior distribution for $\theta$ can be found by integrating over $\Pr(\lambda_1)$ and $\Pr(\lambda_2)$.
-This can be simplified if we assume $\lambda_2$ is negligible and modify  equation \ref{eqn:ml-theta} to estimate $\theta$ directly, in which case the expected value for $\theta$ is
-\begin{equation}
-    \hat{\theta} = 
-    \int_0^1 
-    \frac{\lambda_1 - p} {\lambda_1 - 1}
-    \Pr(\theta | \lambda_1) \,d\lambda_1
-    \label{eqn:theta-with-uncertainty}
-\end{equation}
+% $$ \theta \sim \textrm{Beta}(a_{\theta}, b_{\theta}) $$
+% $$ \lambda_1 \sim \textrm{Beta}(a_{\lambda_1}, b_{\lambda_1}) $$
+% $$ \lambda_2 \sim \textrm{Beta}(a_{\lambda_2}, b_{\lambda_2}) $$
+% The distributions over $\theta$, $\lambda_1$ and $\lambda_2$ represent prior distributions of $\theta$ and error rates, and can be estimated from other data.
+% For example, $\lambda_1$ can be estimated by counting the proportion of all unconverted cytosines in windows of DNA that is known to be unmethylated to get a distribution of error rates, and taking mean $\bar{x}$ and variance $\sigma^2_x$ of these estimates.
+% The shape parameters of the Beta distribution for $\lambda_1$ can be calculated by method-of-moments as
+% \begin{equation}
+%     \hat{a}_{\lambda_1} = \bar{x}(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1)
+%     \label{eqn:beta-a}
+% \end{equation}
+% \begin{equation}
+%     \hat{b}_{\lambda_1} = (1-\bar{x})(\frac{\bar{x}(1-\bar{x})}{\sigma^2_x}-1) 
+%     \label{eqn:beta-b}
+% \end{equation}
+
+% We can use this information to estimate $\theta$ by integrating out values for error rates.
+% The joint posterior distribution of $\theta, \lambda_1, \lambda_2$ is then
+% \begin{equation}
+%     \Pr(\theta, \lambda_1, \lambda_2 | y, \pi)
+%     \propto 
+%     \Pr(y | \theta, \lambda_1, \lambda_2)
+%     \Pr(\theta | a_{\theta}, b_{\theta})
+%     \Pr(\lambda_1 | a_{\lambda_1}, b_{\lambda_1})
+%     \Pr(\lambda_2 | a_{\lambda_2}, b_{\lambda_2})
+% \end{equation}
+% where $\pi=\{a_{\theta}, a_{\lambda_1}, a_{\lambda_2}, b_{\theta}, b_{\lambda_1}, b_{\lambda_2}\}$ for brevity.
+% The marginal posterior distribution for $\theta$ can be found by integrating over $\Pr(\lambda_1)$ and $\Pr(\lambda_2)$.
+% This can be simplified if we assume $\lambda_2$ is negligible and modify  equation \ref{eqn:ml-theta} to estimate $\theta$ directly, in which case the expected value for $\theta$ is
+% \begin{equation}
+%     \hat{\theta} = 
+%     \int_0^1 
+%     \frac{\lambda_1 - p} {\lambda_1 - 1}
+%     \Pr(\theta | \lambda_1) \,d\lambda_1
+%     \label{eqn:theta-with-uncertainty}
+% \end{equation}
 
 \subsubsection{Classification of methylation state} \label{sec:meth-state}
 
 In some cases it makes biological sense to classify the 'state' of a region as methylated or unmethylated rather than quantify methylation level.
 If we assume false conversion errors ($\lambda2$) are negligible, this can be achieved by comparing the evidence that the proportion of unconverted cytosines $p$ is drawn from distribution $f(.)$ generating false non-conversion errors, or from an alternative distribution $g(.)$ that reflects real biological processes.
-$f(.)$ can be modelled as a beta distribution using shape parameters $a_{\lambda1}, b_{\lambda2}$ described above:
+
+$f(.)$ can be modelled as a the compound of a binomial and beta distribution using shape parameters:
 \begin{equation}
     f(p,a_{\lambda1}, b_{\lambda2}) = 
     \textrm{Bin}(y|n,p)
     \textrm{Beta}(p | a_{\lambda1}, b_{\lambda2})
 \end{equation}
-We model $g(.)$ as the cumulative density function of the same beta distribution
+where $a, b$ are shape parameters of the beta distribution of error rates (section \ref{sec:mean-as-beta}).
+We model $g(.)$ using the cumulative density function of the same beta distribution:
 \begin{equation}
     g(p,a_{\lambda1}, b_{\lambda2}) = 
     \textrm{Bin}(y|n,p)
@@ -407,6 +429,7 @@ We model $g(.)$ as the cumulative density function of the same beta distribution
 \end{equation}
 which approaches zero when the proportion of unconverted reads is small, and approaches one when the number of unconverted reads is more than can be accounted for by $ f(p,a_{\lambda1}, b_{\lambda2}) $.
 Both terms incorporate the binomial probability of observing the number of unconverted reads given estimated mean and samples size.
+This formulation asks whether mean methylation is compatible with errors alone, or with something greater than that.
 
 We can apply this model to quantify the evidence that a region of DNA is unmethylated (um), gene-body-like methylated (gbm) or TE-like methylated (TEm) based on the observed non-converted reads in the CG, CHG and CHH sequence contexts ($y_{CG}$, $y_{CHG}$ and $y_{CHH}$; H is any nucleotide apart from G).
 In unmethylated DNA all unconverted cytosines are due to non-conversion errors, and hence the likelihood that the region is unmethylated is
@@ -441,6 +464,14 @@ We used $\theta=0.15$ for these simulations, which is both a realistic estimate 
 
 For each locus we drew a value for $\lambda_!$ from a beta distribution describing variation in error rates across the genome (see section \ref{sec:mean-as-beta}).
 To estimate biologically realistic shape parameters for this distribution we estimated the mean and variation in non-conversion rates in 150bp windows across the chloroplast for one of the Arabidopsis samples, and calculated beta shape parameters by method of moments (equations \ref{eqn:beta-a}, \ref{eqn:beta-b}). 
+
+
+We simulated loci of 200 cytosines, corresponding to TEs of 800bp; the average length of TEs and TE fragments in the Arabidopsis TAIR10 assembly is 798bp.
+Mean methylation of 0.15, because this is realistic for TEs and fairly close to the error distribution.
+At each locus we drew and error rate from a Beta
+We also summed loci
+This gives biologically realistic data
+
 
 \section{Ackowledgements}
 
