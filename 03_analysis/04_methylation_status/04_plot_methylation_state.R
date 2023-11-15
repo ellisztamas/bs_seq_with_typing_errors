@@ -18,7 +18,8 @@ meth_states <- read_csv("03_analysis/04_methylation_status/output/meth_states.cs
       "unmethylated" ~ "Unmethylated",
       "CG-only" ~ "GBM-like",
       "TE-like" ~ "TE-like"
-    )
+    ),
+    state = fct_relevel(state, "Unmethylated")
   )
 
 meth_states %>%

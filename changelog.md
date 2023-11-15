@@ -1,5 +1,9 @@
 # Change log
 
+## Added figure 4
+
+Scripts and plots to create figure 4.
+
 ## Estimate a mean in the presence of typing errors
 
 15th November 2023
