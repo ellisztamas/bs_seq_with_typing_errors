@@ -10,7 +10,7 @@ col0 <- lapply(col0_files, read_csv, col_types = "cciii") %>%
   mutate(
     organism = "Arabidopsis",
     filename = str_extract(basename(col0_files), "Col0_[0-5]{2}_1[35]X"),
-    meth = meth / (meth + unmethylated)
+    meth = meth / (unconverted + converted)
   ) %>%
   select(organism, filename, meth)
 
@@ -31,7 +31,7 @@ flies <- do.call('rbind', flies)
 flies <- flies %>%
   group_by(organism, filename) %>%
   summarise(
-    meth = sum(meth) / sum(meth + unmethylated),
+    meth = sum(meth) / sum(unconverted + converted),
     .groups = "drop_last"
   )
 
@@ -47,7 +47,7 @@ lambda <- lapply(lambda_files, read_csv, col_types = "cciii") %>%
     filename = paste0(
       'lambda_', str_extract(basename(lambda_files), ".{3,4}_[0-5]{2}_1[35]X")
       ),
-    meth = meth / (meth + unmethylated)
+    meth = meth / (unconverted + converted)
   ) %>%
   select(organism, filename, meth)
 

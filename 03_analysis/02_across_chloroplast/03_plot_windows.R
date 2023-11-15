@@ -17,7 +17,7 @@ import_windows <- function(paths){
   }
   mC_in_windows <- do.call('rbind', mC_in_windows) %>%
     mutate(
-      n = meth + unmethylated,
+      n = unconverted + converted,
       theta = meth /n
     ) %>%
     filter(
