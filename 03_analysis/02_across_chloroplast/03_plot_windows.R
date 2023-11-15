@@ -33,7 +33,7 @@ plot_col0_windows <- col0 %>%
   ggplot( aes(x = start, y = theta, colour = name, group=name )) +
   geom_line() +
   labs(
-    x = "Position",
+    x = "Window position",
     y = "Non-conversion"
   ) +
   theme_bw() +
@@ -74,7 +74,7 @@ ggarrange(
 ggsave(
   filename = "04_manuscript/figure2.eps",
   device = "eps",
-  units = "cm", height = 10, width= 16.9
+  units = "cm", height = 10, width= 13
 )
 
 # cor( col0$n, col0$theta, method = 's')

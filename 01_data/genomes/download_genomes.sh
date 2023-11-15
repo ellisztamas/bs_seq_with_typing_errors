@@ -25,7 +25,10 @@ fasta=https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAI
 wget -P $outdir $fasta
 # *A. thaliana* Annotation file
 at_annotation=https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_gff3/TAIR10_GFF3_genes_transposons.gff
-wget -P $outdir/TAIR10_gff3 $at_annotation
+wget -P $outdir $at_annotation
+# BED file containing TE annotations
+te_bed=https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_transposable_elements/TAIR10_Transposable_Ele$
+wget -P $outdir $te_bed
 
 # Download D. melanogaster reference genome 6 to a temporary directory
 download_link='https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/215/GCF_000001215.4_Release_6_plus_ISO1_MT/GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.fna.gz'
