@@ -119,6 +119,7 @@ binomial_mean_with_uncertainty <- function(x, size, shape1, shape2, npoints=1000
   # Matrix of true methylation level for each value of lambda
   # Dimensions: length(x) * length(lambda_vals)
   theta_matrix <- (lambda_matrix - p) / (lambda_matrix -1)
+  theta_matrix[theta_matrix < 0] <-0
 
   # Sum over the lambda axis to get the expected values for theta
   rowSums(theta_matrix * lambda_probs)

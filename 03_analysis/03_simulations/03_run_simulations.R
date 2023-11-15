@@ -1,6 +1,8 @@
 
 source("03_analysis/03_simulations/02_simulate_methylation_over_loci.R")
 
+set.seed(1511)
+
 nloci <- 10^(0:5)
 coverage <- c(1,2,4,8,16,32)
 shape1 <- 17

@@ -3,12 +3,11 @@ library("ggpubr")
 
 sims <- read_csv(
   '03_analysis/03_simulations/simulations.csv'
-  )
-
-sims <- sims %>%
+  ) %>%
+  select(-integration) %>%
   filter(nloci <= 1e2) %>%
   mutate(
-    nloci = paste0(nloci, " loci")
+    nloci = ifelse(nloci == 1, paste0(nloci, " locus"), paste0(nloci, " loci"))
   ) %>%
   pivot_longer(no_errors : lambda_mean) %>%
   mutate(name = fct_relevel(name, rev))
@@ -24,9 +23,8 @@ plot_sim_distributions <- sims %>%
   scale_colour_discrete(
     labels = c(
       "No errors",
-      "\u03bb is known",
-      "Integrate \u03bb",
-      "\u03bb is estimated"
+      "Error rate is known",
+      "Error rate is estimated"
     )
   ) +
   theme_bw() +
@@ -35,7 +33,7 @@ plot_sim_distributions <- sims %>%
   ) +
   facet_grid(~factor(nloci))
 
-pd<- position_dodge(0.5)
+pd<- position_dodge(0)
 
 plot_sim_mse <- sims %>%
   mutate(squared_error = (value - real_p)^2) %>%
@@ -57,9 +55,8 @@ plot_sim_mse <- sims %>%
   scale_colour_discrete(
     labels = c(
       "No errors",
-      "\u03bb is known",
-      "Integrate \u03bb",
-      "\u03bb is estimated"
+      "Error rate is known",
+      "Error rate is estimated"
     )
   ) +
   theme_bw() +
