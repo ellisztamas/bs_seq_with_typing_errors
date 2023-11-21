@@ -8,14 +8,14 @@ for the genotyping file on the 30x Col-0 data we ran.
 """
 
 import pandas as pd
-import epiclinestools as epi
+import methlab as ml
 
-print("Using epiclinestools verion {}".format(epi.__version__))
+print("Using methlab verion {}".format(ml.__version__))
 
 # Cytosine coverage file
 print("Importing coverage file.")
 path = "02_processing/02_align_reads/columbia/output/reports/Col0_05_13X.CX_report.txt.gz"
-cx_report = epi.CytosineCoverageFile(path)
+cx_report = ml.CytosineCoverageFile(path)
 
 # METHYLATION ON GENE BODIES
 # annotated genes in tair10

@@ -23,4 +23,4 @@ dependencies:
   - pysam
   - pip:
     - biopython
-    - git+https://github.com/ellisztamas/epiclinestools.git#egg=argh
+    - git+https://github.com/ellisztamas/methlab.git#egg=argh

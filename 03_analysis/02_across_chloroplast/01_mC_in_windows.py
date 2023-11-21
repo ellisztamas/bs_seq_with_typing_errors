@@ -7,7 +7,7 @@ sequence context, number of methylated and unmethylated reads, and total
 number of cytosines.
 """
 
-import epiclinestools as epi
+import methlab as ml
 import pandas as pd
 import argparse
 
@@ -44,11 +44,11 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-print("Using epiclinestools verion {}".format(epi.__version__))
+print("Using methlab verion {}".format(ml.__version__))
 
 # Cytosine coverage file
 print("Importing coverage file.")
-cx_report = epi.CytosineCoverageFile(args.input)
+cx_report = ml.CytosineCoverageFile(args.input)
 
 # Get counts in windows
 print("Counting methylated reads in windows")

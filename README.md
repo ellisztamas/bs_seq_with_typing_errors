@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/709326989.svg)](https://zenodo.org/doi/10.5281/zenodo.10171228)
+
+
 # Bisulphite sequencing in the presence of conversion errors
 
 Code supporting the manuscript "Bisulphite sequencing in the presence of
@@ -52,13 +55,13 @@ conda env create -f environment.yml
 ```
 Scripts contain code to load the environment, but you may need to change 
 
-### epiclinestools
+### methlab
 
-The analysis uses functions from the custom Python package (https://epiclinestools.readthedocs.io/en/latest/)[epiclinestools].
+The analysis uses functions from the custom Python package (https://epiclinestools.readthedocs.io/en/latest/)[methlab].
 In theory it ought to install as part of the conda environment described above, but this can be finicky.
 If it fails, try
 ```
-pip install git+https://github.com/ellisztamas/epiclinestools.git#egg=argh
+pip install git+https://github.com/ellisztamas/methlab.git#egg=argh
 ```
 
 ## Author information

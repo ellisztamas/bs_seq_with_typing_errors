@@ -2,10 +2,10 @@
 # Creates a CSV file with a row for each sample, giving sample, path to the fastq
 # file for read 1, and (if paired-end) the path to the fastq file for read 2.
 
-# This uses the command align_fastq_with_plate_positions from epiclines_tools
+# This uses the command align_fastq_with_plate_positions from methlab
 # to identify filenames with matching adapter sequences, and looks the position 
 # of those adapters up in a text file. See
-# /groups/nordborg/projects/epiclines/001.library/epiclines_tools/
+# /groups/nordborg/projects/epiclines/001.library/methlab/
 
 # Tom Ellis, 3rd July 2023
 
@@ -13,8 +13,8 @@ import pandas as pd
 from glob import glob
 import os
 
-import epiclinestools as epi
-print("Using epiclines version " + epi.__version__)
+import methlab as ml
+print("Using methlab version " + ml.__version__)
 
 # File giving the experimental design with a ow for each sample, giving plate 
 # ID, temperature, row and column, F2 vs parent, and direction.
@@ -37,7 +37,7 @@ indices_to_remove = [ 'CGCTCAGTTCTCGTGGAGCG', 'TATCTGACCTCTACAAGATA', 'TTCTATGGT
 input_files = [ filename for filename in input_files if all([bad_index  not in filename for bad_index in indices_to_remove]) ]
 
 # Get plate positions
-sample_positions = epi.align_fastq_with_plate_positions(
+sample_positions = ml.align_fastq_with_plate_positions(
     input_files,
     adapter_indices = 'dualxt',
     prefix = "mix_"

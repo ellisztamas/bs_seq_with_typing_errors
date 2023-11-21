@@ -26,7 +26,7 @@ Both retain the headers of the input.
 """
 
 import argparse
-import epiclinestools as epi
+import methlab as ml
 
 # Parameters
 parser = argparse.ArgumentParser(description = 'Parse parameters')
@@ -56,7 +56,7 @@ outfile_discard.writelines(header)
 n_pairs_kept = 0
 n_pairs_discarded = 0
 for i in range(len(reads)):
-    this_read = epi.BismarkSam(reads[i])
+    this_read = ml.BismarkSam(reads[i])
     count_mC  = this_read.count_mC()
     total_reads_on_C = count_mC[0] + count_mC[1]
 
