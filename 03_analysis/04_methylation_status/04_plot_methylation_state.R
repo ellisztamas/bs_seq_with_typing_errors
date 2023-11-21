@@ -9,25 +9,38 @@
 library(tidyverse)
 
 meth_states <- read_csv("03_analysis/04_methylation_status/output/meth_states.csv") %>%
-  rename(state = call) %>%
-  filter(coverage >= 10) %>%
+  rename(
+    state = call,
+    Unmethylated = unmethylated,
+    `GBM-like` = `CG-only`
+    ) %>%
   mutate(
-    type = fct_relevel(factor(type), c("Chloroplast", "Genes")),
-    state = case_match(
-      state,
-      "unmethylated" ~ "Unmethylated",
-      "CG-only" ~ "GBM-like",
-      "TE-like" ~ "TE-like"
-    ),
-    state = fct_relevel(state, "Unmethylated")
+    type = fct_relevel(factor(type), c("Chloroplast", "Genes"))
+    # state = case_match(
+    #   state,
+    #   "unmethylated" ~ "Unmethylated",
+    #   "CG-only" ~ "GBM-like",
+    #   "TE-like" ~ "TE-like"
+    # ),
+    # state = fct_relevel(state, "Unmethylated")
   )
 
 meth_states %>%
-  ggplot(aes(x = state, y = ..prop.., group=1)) +
-  geom_bar(stat = "count") +
+  pivot_longer(Unmethylated : `TE-like`) %>%
+  group_by(type, name) %>%
+  summarise(
+    mean = mean(value, na.rm = TRUE)
+  ) %>%
+  mutate(
+    name = as.factor(name),
+    name = fct_relevel(name, "Unmethylated")
+    ) %>%
+  ggplot(aes(x = name, y = mean)) +
+  geom_col() +
+  lims(y = c(0,1)) +
   labs(
     x = "Methylation state",
-    y = "Frequency"
+    y = "Probability"
   ) +
   theme_bw() +
   theme(
@@ -41,9 +54,14 @@ ggsave(
   units = "cm", width = 16.9, height = 8
 )
 
-# meth_states %>%
-#   pivot_longer(unmethylated : te_like, names_to = "State", values_to = "Probability") %>%
-#   ggplot(aes( x = State, y = Probability)) +
-#   geom_boxplot() +
-#   theme_bw() +
-#   facet_grid(~type)
+meth_states %>%
+  group_by(type, state) %>%
+  summarise(
+    n = n()
+  ) %>%
+  filter(!is.na(state)) %>%
+  group_by(type ) %>%
+  summarise(
+    state,
+    mean = n / sum(n)
+  )
