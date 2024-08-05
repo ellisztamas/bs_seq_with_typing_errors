@@ -121,7 +121,7 @@
 \section{Introduction}
 
 Cytosine methylation is a common epigentic mark often associated with transcriptional silencing.
-A common approach to assay methylation is to treat DNA with sodium bisulphite to convertunmethylated cytosines to uracil that are in turn converted to thymine in a subsequent PCR step (\cite{clark1994high}.
+A common approach to assay methylation is to treat DNA with sodium bisulphite to convertunmethylated cytosines to uracil that are in turn converted to thymine in a subsequent PCR step \parencite{clark1994high}.
 Methylated cytosines remain intact.
 Following sequencing of the resulting DNA fragments, reads are aligned to a reference genome.
 The methylation status at each site is determined based on how many thymines and cytosines align to each genomic cytosine position.
@@ -129,8 +129,8 @@ This gives a quantitative estimate of the proportion of cells in which each cyto
 
 A major limitation of bisulphite treatment is that the process itself damages DNA, meaning that large amounts of starting material are required for adequate results.
 Early studies provided the first genome-wide surveys of methylation profiles, but relied on sonication of DNA followed by a delicate adaptor-ligation step (e.g. \cite{meissner2005reduced, cokus2008shotgun, lister2009human}).
-Aiming to make the procedure more easily scalable to large samples, 'tagmentation' approaches use a Tn5 transposase to simultaneously cut the DNA and ligate adaptors and PCR primers to the fragments (\cite{wang2013tagmentation}).
-In the original protocol, the transposase is loaded with a single adaptor, and the second adaptor is annealed by by oligo replacement, followed by repair of the nine-base-pair single-stranded gap left by the transposase (\cite{adey2012ultra}).
+Aiming to make the procedure more easily scalable to large samples, 'tagmentation' approaches use a Tn5 transposase to simultaneously cut the DNA and ligate adaptors and PCR primers to the fragments \parencite{wang2013tagmentation}.
+In the original protocol, the transposase is loaded with a single adaptor, and the second adaptor is annealed by by oligo replacement, followed by repair of the nine-base-pair single-stranded gap left by the transposase \parencite{adey2012ultra}.
 This allows for several orders of magnitude less starting material than sonication-based protocols, but the oligo-replacement step remains the most challenging step.
 \textcite{lu2015improved} modified this approach to load the transposome with two methylated adaptors, and to replace the oligo-replacement and gap repair steps with a single strand displacement reaction by a \textit{Bst} polymerase.
 The strand displacement step simultaneously fills the nine-base-pair gap and replaces of the adaptor sequence (see also \cite{weichenhan2018tagmentation, suzuki2018whole}).
@@ -168,7 +168,7 @@ We describe a statistical framework to account for non-conversion errors to quan
 \end{figure}
 
 We investigated how and where cytosine non-conversion errors occur in plant, fly and viral DNA.
-We prepared bisulphite libraries for samples of the \textit{Arabidopsis thaliana} reference accession \textit{Columbia} (Col-0), \textit{Drosophila melanogaster} and the Lambda phage.
+We prepared bisulphite libraries for samples of \textit{Arabidopsis thaliana}, \textit{Drosophila melanogaster} and the Lambda phage.
 Plant chloroplasts, fruit flies and this virus lack cytosine methylation, so any unconverted cytosines we observe must be erroneous.
 we modified the strand-displacement protocol described by \textcite{weichenhan2018tagmentation} to use two concentrations of transposase, and either 13 or 15 PCR cycles, to identify possible artefacts of these variables.
 Overall cytosine non-conversion rates were very high, ranging from a few percent up to more than 17\% (figure \ref{fig:reads}A).
@@ -312,7 +312,8 @@ Increasing the number of binomial trials is the surest path to accurate estimate
     \includegraphics{figure4.eps}
     \caption{
         Methylation state calls in windows of the chloroplast, genes, CMT-targetted TEs and RdDM-targetted TEs.
-        Plots show the frequency with which features of each of these classes are most likely to be unmethylated, gene-body-like (GBM) methylated, or TE-like methylated.
+        Plots show the posterior probabilities that a single window/gene/TE is in each state.
+        Only those features with at least one aligned read in each sequence context are shown.
     }
     \label{fig:meth-state}
 \end{figure}
@@ -324,7 +325,7 @@ In plants, cytosines can be methlylated in all three sequence contexts (CG, CHG 
 Although much of the Arabidopsis genome is unmethylated, some genes display 'gene-body methylation' characterised by methylation of CG sites, whose origin and function has attracted much attention (\cite{muyle2022gene}). 
 Transposable elements are associated with methylation in all three of these contexts (\cite{cokus2008shotgun, lister2008highly}).
 \textcite{zhang2020natural} describe a continuum from unmethylated to gene-body-like methylation (GBM-like) to TE-like methylation.
-Since these three states are likeley maintained by distinct biological pathways it makes sense to model them as distinct methylation states.
+Since these three states are likely maintained by distinct biological pathways it makes sense to model them as distinct methylation states.
 
 We categorised methylation status for bisulphite data in the presence of substantial non-conversion errors in our Arabidopsis samples.
 We used a model that compares the evidence that the counts of observed converted and unconverted reads in the three sequence contexts are consistent with non-conversion errors only, or a mixture of errors and real cytosine methylation (see section \ref{sec:meth-state}).
@@ -363,16 +364,19 @@ Ultimately the additional work in dealing with errors should be traded off again
 
 Viktoria to fill in this section.
 
-We extracted DNA from one sample each of the \textit{A. thaliana} accession Col-0 and \textit{D. melanogaster} using [some kit]
+We extracted DNA from one sample each of the \textit{A. thaliana} accession Col-0 and \textit{D. melanogaster} using [some kit].
 We prepared bisulphite libraries based on the protocol described by \textcite{weichenhan2018tagmentation} using [some amount] of DNA, [some amount] of Tn5 transposase, and a ample sweat, blood and tears.
+In each library preparation we also included [volume]ng of Lambda-phage DNA (New England Biolabs) as an unmethylated control.
 We modifed the protocol to use a ratio of DNA to transposase of 1:1 and 2:1, and 13 or 15 cycles of PCR.
-We sequenced the prepared libraries on some black-magic sequencing contraption
+We sequenced the prepared libraries on some black-magic sequencing contraption and made suitable sacrifice to the gods of the VBC sequencing facility.
 
 \subsection{Bioinformatics}
 
 We used Trim Galore! to remove adaptor sequences from raw reads. We also trimmed 15bp from the 5` and 9bp from the 3` end of each read corresponding to the gap-repair regions of each fragment \parencite{krueger2015trim} and visually inspected the quallity of unaligned reads using FastQC \parencite{andrews2020fastqc}.
-We used Bismark to align reads to their respective genomes, remove PCR-duplicated sequences and calculate the number of converted and unconverted cytosines aligning to each genomic cytosine position \parencite{krueger2011bismark}.
-We used these cytosine report files to quantify overall non-conversion rates across the Drosophila and Lambda-phage genomes.
+We used Bismark to align reads to the TAIR10 and \textit{D. melanogaster} 6 reference genomes \parencite{krueger2011bismark}.
+We concatenated both reference genomes with the Lambda phage genome.
+In addition, we included the genomes of the microbial symbionts \textit{Acetobacter aceti} and \textit{Lactobacillus acidophilus}.
+We used Bismark to remove PCR-duplicated sequences and calculate the number of converted and unconverted cytosines aligning to each genomic cytosine position, and used the resulting cytosine report files to quantify overall non-conversion rates across the Drosophila and Lambda-phage genomes.
 For Arabidopsis we estimated non-conversion on the first half of the chloroplast only, because the second half shows strong homology with one of the autosomes.
 
 We used custom Python functions to quantify patterns of non-conversion within reads and across the genome, available via the package \textit{epiclinestools} from \url{https://github.com/ellisztamas/epiclinestools}.
@@ -488,12 +492,12 @@ Following equation \ref{eqn:binom-with-errors} and ignoring false conversion err
 We used $\theta=0.15$ for these simulations, which is both a realistic estimate of TE methylation level (\cite{dubin2015dna}) and close enough to true error rates that the latter are likely to be problematic.
 
 For each locus we drew a value for $\lambda_!$ from a beta distribution describing variation in error rates across the genome (see section \ref{sec:mean-as-beta}).
-To estimate biologically realistic shape parameters for this distribution we estimated the mean and variation in non-conversion rates in 150bp windows across the chloroplast for one of the Arabidopsis samples, and calculated beta shape parameters by method of moments (equations \ref{eqn:beta-a}, \ref{eqn:beta-b}). 
+To estimate biologically realistic shape parameters for this distribution we estimated the mean and variation in non-conversion rates in 150bp windows across the chloroplast for one of the Arabidopsis samples, and calculated beta shape parameters by method of moments (equations \ref{eqn:beta-a}, \ref{eqn:beta-b}).
 
 \section{Data and code availability}
 
 Sequence data are available from [need to do this].
-Code to run the analyses is available from Github (\url{https://github.com/ellisztamas/bs_seq_with_typing_errors}).
+Code to run the analyses is available from Github (\url{https://github.com/ellisztamas/bs_seq_with_typing_errors}) and Zenodo (DOI:10.5281/zenodo.10171229).
 
 \section{Ackowledgements}
 
