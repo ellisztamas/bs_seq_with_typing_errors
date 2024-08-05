@@ -1,97 +1,117 @@
-%
-% Paper title
-% Authors
-% 
-%-----------------------------------------------------------------
+\documentclass[twocolumn,twoside,lettersize]{article}
+\usepackage{graphicx} % Required for inserting images
+%\usepackage{multicol}
+\usepackage{titletoc}
+\usepackage{lipsum} % Required to insert dummy text
 
-\documentclass[12pt,longbibliography]{article}
-
-% Packages
-%-----------------------------------------------------------------
-
-% Allow direct use of accents such as á é ñ.
-\usepackage[utf8]{inputenc}
-
-% This is a good idea to have some symbols included within the font
-% properly:
-% http://tex.stackexchange.com/questions/664/why-should-i-use-usepackaget1fontenc
-\usepackage[T1]{fontenc}
-
-% Set type of paper and margins.
-\usepackage[a4paper, margin=2.7cm]{geometry}
-
-\usepackage{amsmath, amsthm, amsfonts, amssymb}
-\usepackage{mathrsfs}           % \mathscr font.
-
-% Generate a PDF with hyperlinks in references.
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,breaklinks]{hyperref}
-
-% Double-stroke font (\mathbbm).
-\usepackage{bbm} 
+% \usepackage{setspace} \doublespacing 
+\usepackage[switch]{lineno} \linenumbers
 
 \usepackage{graphicx}
+\usepackage{hyperref}
 
-% Bibliography
-%-----------------------------------------------------------------
+\usepackage{listings}
 
-% This uses a bibliography style which hyperlinks the paper titles to
-% the paper URL specified in the bibtex file. It also uses natbib,
-% which cites papers by name such as Euler (1770) instead of [17].
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\floatpagefraction}{0.80}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\dblfloatpagefraction}{0.80}
 
-\usepackage{breakurl}
-\usepackage{natbib}
-\usepackage{url}
-% \bibliographystyle{plainnat-linked}
-% \bibliographystyle{plain}
-\usepackage[
-          bibstyle=authortitle,
-          citestyle=authoryear,
-          maxbibnames=10,
-          backend=biber
-          ]{biblatex}
-% \usepackage[style=authoryear]{biblatex}
-% \usepackage{biblatex} %Imports biblatex package
+%\addtolength{\oddsidemargin}{-0.2in}
+%\addtolength{\evensidemargin}{-0.2in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\addtolength{\textwidth}{0.4in}
+%\addtolength{\topmargin}{-0.5in}
+%\addtolength{\textheight}{1in}
+\addtolength{\topmargin}{-0.8in}
+\addtolength{\textheight}{1.5in}
+
+\usepackage{amsmath}
+
+\usepackage{times}
+
+\usepackage{mdwlist}
+
+\usepackage{multirow}
+\usepackage{longtable}
+
+\usepackage{xcolor}
+
+
+\usepackage[sort&compress]{natbib}
+% \citestyle{nature}
+
+% \usepackage{natgen}
+
+%\usepackage{ccaption}
+%\captiondelim{ }
+%\captionnamefont{\bf}
+\usepackage[font=small,labelfont=bf,labelsep=endash]{caption}
+
+\usepackage[capbesideposition=inside,facing=yes,capbesidesep=quad]{floatrow}
+
+\usepackage{textcomp}
+
+%\usepackage[margin=1.5cm]{geometry}
+%\usepackage{longtable}
+
+% \renewcommand\refname{\normalsize REFERENCES}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\fancyhead[L]{Kim \emph{et al.}}
+%\fancyhead[R]{\thepage}
+\fancypagestyle{plain}{%
+    \setlength{\footskip}{24pt}
+    \renewcommand{\footrulewidth}{\headrulewidth}
+  \fancyhf{}
+%  \fancyhead[RO,LE]{\textbf{ARTICLES}}
+%  \fancyhead[LO,RE]{NATURE|Vol XXX|Month day 2009}\textbf{ARTICLES}}
+  \fancyfoot[LO]{%
+ \footnotesize
+  $^1$Gregor Mendel Institute, Austrian Academy of Sciences, Vienna BioCenter, Vienna, Austria.
+  $^2$ e-mail: magnus.nordborg@gmi.oeaw.ac.at
+  }
+}
+\fancyhf{}
+%\fancyhead[RO,LE]{\textbf{ARTICLES}}
+%\fancyhead[LO,RE]{NATURE|Vol XXX|Month day 2009}
+\fancyhead[L]{Ellis \& {\AA}gren}
+\fancyhead[R]{\today}
+\fancyhead[C]{Adaptation to soil type in \textit{A. thaliana}}
+\fancyfoot[RO,LE]{\textbf{\thepage}}
+
+\usepackage{sidecap}
+\usepackage{rotating}
+\usepackage{marvosym}
+
+\usepackage{biblatex} %Imports biblatex package
 \addbibresource{refs.bib} %Import the bibliography file
 
 
-% Title, author, date
-%-----------------------------------------------------------------
-
-% If set, these will be the internal title and author of the PDF (and
-% will be listed for example in ereaders and tablets).
-
-% \hypersetup{pdftitle={Title of the PDF}}
-% \hypersetup{pdfauthor={Author of the PDF}}
-
-
-% Paper title and author
-\title{Bisulphite sequencing in the presence of cytosine-conversion errors} % Article title
+\title{Bisulphite sequencing in the presence of cytosine-conversion errors}
 
 \author{
-    Thomas James Ellis 
+    Thomas James Ellis$^1$
     \and
-    Viktoria Nyzhynska
+    Viktoria Nyzhynska$^1$
     \and
-    Rahul Pisupati 
+    Rahul Pisupati$^1$
     % \and
     % Gr\'{e}goire Bohl-Viallefond
     \and
-    Almudena Moll\'a Morales
+    Almudena Moll\'a Morales$^1$
     \and
-    Magnus Nordborg
+    Magnus Nordborg$^{1,2}$
 }
 
-
-
-% Date is set automatically unless specified.
-% \date{October 2015}
-
-\date{\today} % Leave empty to omit a date
-
-\begin{document}
-\maketitle
-
-\begin{abstract}
+\date{
+ \begin{list}{}{%
+      \setlength{\leftmargin}{0cm}%
+      \setlength{\rightmargin}{\leftmargin}}%
+  \item\normalsize\bf 
     Bisulphite treatment of DNA converts of unmethylated cytosines to thymine, and is a common approach to infer the methylation status of cytosines.
     'Tagmentation' approaches to bisulphite treatment use a transposase to simultaneously make double-stranded breaks and ligate adaptors to the resulting fragments, allowing for higher throughput with less starting material.
     However, but it has also been noted that certain tagmentation protocols have an unusually high number unmethylated cytosines that are not converted to thymine.
@@ -99,24 +119,14 @@
     Nevertheless we show that these errors can be accounted for in downstream analysis and need not impede biological conclusions.
     We provide a Python package to allow users to implement this framework.
     Ultimately the additional effort of accounting for errors must be traded off against the scalability of the protocol in planning experiments.
-    \end{abstract}
+  \end{list}
+}
 
 
 
-% \author[\centering AUTHOR]{
-%     \so{Thomas James Ellis, Viktoria Nyzhynska, Rahul Pisupati, Gr\'{e}goire Bohl-Viallefond, Almudena Moll\`a Morales, Magnus Nordborg}
-%     \thanks{Corresponding author.\hfil\break e-mail: magnus.nordborg@gmi.oeaw.ac.at}}
-%     \affiliation{Gregor Mendel Institute of Molecular Plant Biology, Doktor-Bohr-Gasse 3, 1030 Vienna, Austria}
-
-
-% \history{Manuscript received xx xxxx xx; in final form xx
-% xxxx xx}
+\begin{document}
 
 \maketitle
-
-% \begin{keywords}
-% methylation, bisulphite, transposase, tagmentation
-% \end{keywords}
 
 \section{Introduction}
 
@@ -133,7 +143,7 @@ Aiming to make the procedure more easily scalable to large samples, 'tagmentatio
 In the original protocol, the transposase is loaded with a single adaptor, and the second adaptor is annealed by by oligo replacement, followed by repair of the nine-base-pair single-stranded gap left by the transposase \parencite{adey2012ultra}.
 This allows for several orders of magnitude less starting material than sonication-based protocols, but the oligo-replacement step remains the most challenging step.
 \textcite{lu2015improved} modified this approach to load the transposome with two methylated adaptors, and to replace the oligo-replacement and gap repair steps with a single strand displacement reaction by a \textit{Bst} polymerase.
-The strand displacement step simultaneously fills the nine-base-pair gap and replaces of the adaptor sequence (see also \cite{weichenhan2018tagmentation, suzuki2018whole}).
+The strand displacement step simultaneously fills the nine-base-pair gap and replaces of the adaptor sequence (see also \cite{weichenhan2019generation, suzuki2018whole}).
 In contrast to the previous approach, gap repair is carried out using dNTPs with 5-methyl-dCTPs instead of dCTPs.
 Using two adaptors also has the advantage that the original and complementary strands generated by PCR can be distinguished by read-alignment software, effectively doubling coverage. 
 The stand-displacement tagmentation protocol thus has the potential to yield more information from less starting material.
@@ -155,7 +165,8 @@ We describe a statistical framework to account for non-conversion errors to quan
 
 \subsection{Non-conversion affects all or part of a read}
 
-\begin{figure}
+\begin{figure*}
+  \begin{center}
     \includegraphics{figure1.eps}
     \caption{
         Cytosine non-conversion within and between reads on unmethylated DNA from \textit{A. thaliana}, the entire \textit{D. melanogaster} and Lambda phage. For \textit{A. thaliana}, data are shown for reads aligning to the first 75kb of chloroplast.
@@ -164,13 +175,13 @@ We describe a statistical framework to account for non-conversion errors to quan
         (C) The probability of observing an unconverted cytosine across each read on the four strands generated by bisulphite libraries (OT=original top strand; OB=original bottom; CTOT=complementary to original top; CTOB=complementary to original bottom) averaged over libraries.
     }
     \label{fig:reads}
-
-\end{figure}
+  \end{center}
+\end{figure*}
 
 We investigated how and where cytosine non-conversion errors occur in plant, fly and viral DNA.
 We prepared bisulphite libraries for samples of \textit{Arabidopsis thaliana}, \textit{Drosophila melanogaster} and the Lambda phage.
 Plant chloroplasts, fruit flies and this virus lack cytosine methylation, so any unconverted cytosines we observe must be erroneous.
-we modified the strand-displacement protocol described by \textcite{weichenhan2018tagmentation} to use two concentrations of transposase, and either 13 or 15 PCR cycles, to identify possible artefacts of these variables.
+we modified the strand-displacement protocol described by \textcite{weichenhan2019generation} to use two concentrations of transposase, and either 13 or 15 PCR cycles, to identify possible artefacts of these variables.
 Overall cytosine non-conversion rates were very high, ranging from a few percent up to more than 17\% (figure \ref{fig:reads}A).
 There was substantial variation between libraries, but there was no consistent effect of species, transposase concentration, or number of PCR cycles.
 High non-conversion do not seem to be constrained to any species, and there is substantial stochasticity between samples.
@@ -197,7 +208,8 @@ The reasons for this potential strand specificity remain unclear.
 
 \subsection{Non-conversion errors vary across the genome}
 
-\begin{figure}
+\begin{figure*}
+  \begin{center}
     \includegraphics{figure2.eps}
     \caption{
         Variation in cytosine non-conversion across the first half of the chloroplast in four independent replicate library preparations of the Arabidopsis accession Col-0.
@@ -206,7 +218,8 @@ The reasons for this potential strand specificity remain unclear.
         (C) Relationship between non-conversion and GC content.
     }
     \label{fig:uncertainty}
-\end{figure}
+  \end{center}
+\end{figure*}
 
 Taking the average cytosine non-conversion rate on control DNA gives a point estimate of the genome-wide non-conversion rate, but this might mask variation in error rates between sites.
 To investigate this we estimated non-conversion rates in 150bp windows across the Arabidopsis chloroplast.
@@ -255,7 +268,8 @@ In sections that follow we describe a framework to model non-conversion errors a
 
 \subsection{Methylation estimates depend more on sample size than non-conversion errors}
 
-\begin{figure}
+\begin{figure*}
+  \begin{center}
     \includegraphics{figure3.eps}
     \caption{
         Estimates of mean methylation in simulated data using different estimates of the non-conversion error rate.
@@ -269,7 +283,8 @@ In sections that follow we describe a framework to model non-conversion errors a
         Note that points are offset along the x-axis for visual clarity.
     }
     \label{fig:simulations}
-\end{figure}
+  \end{center}
+\end{figure*}
 
 Often one may wish to estimate and compare average methylation within and between regions of the genome.
 Estimates of average methylation reflect a binomial sampling process of converted and unconverted cytosines.
@@ -307,7 +322,7 @@ Increasing the number of binomial trials is the surest path to accurate estimate
 
 \subsection{Imputation of methylation state}
 
-\begin{figure}
+\begin{figure*}
     \centering
     \includegraphics{figure4.eps}
     \caption{
@@ -316,7 +331,7 @@ Increasing the number of binomial trials is the surest path to accurate estimate
         Only those features with at least one aligned read in each sequence context are shown.
     }
     \label{fig:meth-state}
-\end{figure}
+\end{figure*}
 
 In some applications one might wish to classify a discrete methylation 'state', rather than quantify methylation level.
 For example, if the biological question addresses whether a locus is targetted by silencing machinery or not it may be practical to classify a region as 'methylated' or 'unmethylated', rather than try to deal with noisy or overdispersed quantitative estimates.
@@ -362,32 +377,40 @@ Ultimately the additional work in dealing with errors should be traded off again
 
 \subsection{Bisulphite sequencing}
 
-Viktoria to fill in this section.
-
-We extracted DNA from one sample each of the \textit{A. thaliana} accession Col-0 and \textit{D. melanogaster} using [some kit].
-We prepared bisulphite libraries based on the protocol described by \textcite{weichenhan2018tagmentation} using [some amount] of DNA, [some amount] of Tn5 transposase, and a ample sweat, blood and tears.
-In each library preparation we also included [volume]ng of Lambda-phage DNA (New England Biolabs) as an unmethylated control.
-We modifed the protocol to use a ratio of DNA to transposase of 1:1 and 2:1, and 13 or 15 cycles of PCR.
-We sequenced the prepared libraries on some black-magic sequencing contraption and made suitable sacrifice to the gods of the VBC sequencing facility.
+We extracted DNA from the \textit{A. thaliana} accession Col-0 and \textit{D. melanogaster} using NucleoMag 96 Plant kit (Macherey Nagel Bioanalysis REF. 744400.24).
+An aliquot of \textit{D. melanogaster} DNA was kindly donated by Julius Brenecke’s lab.
+We prepared bisulphite libraries based on the protocol described by \textcite{weichenhan2019generation} with some modifications.
+We used 20-30 ng of DNA per sample.
+We performed tagmentation performed using in-house Tn5 transposase in ratios of 1:1 and 2:1 DNA to transposase.
+We used EZ-96 DNA Methylation-Gold MagPrep (Zymo, D5043) for bisulphite conversion.
+We did 13 or 15 cycles of PCR amplification for enrichment, and we used Illumina Nextera DNA indexes (i7/i5) to allow multiplexing.
+We performed size selection and PCR clean-up with in-house SPRI beads.
+We validated libraries by Fragment Analyzer™ Automated CE System (Advanced Analytical) and pooled them in equimolar concentration.
+Median insert size was around 350 bp.
+As an internal control, we added 5 pg of control DNA unmethylated Lambda (New England Biolabs, E7123A) per 10 ng sample DNA. 
+Libraries were sequenced by the Next Generation Sequencing Facility at Vienna BioCenter Core Facilities (VBCF), on an Illumina NovaSeq Analyzer using manufacturer’s standard cluster generation ad sequencing tools (S2 flowcell with 100 bp paired end reads).
+To compensate for low nucleotide diversity in bisulphite libraries, each lane included a 15\% splike in of phiX Control.
 
 \subsection{Bioinformatics}
 
-We used Trim Galore! to remove adaptor sequences from raw reads. We also trimmed 15bp from the 5` and 9bp from the 3` end of each read corresponding to the gap-repair regions of each fragment \parencite{krueger2015trim} and visually inspected the quallity of unaligned reads using FastQC \parencite{andrews2020fastqc}.
+We used cutadapt to remove adaptor sequences from raw reads \parencite{martin2011cutadapt}.
+We also trimmed 15bp from the 5` and 9bp from the 3` end of each read corresponding to the gap-repair regions of each fragment and visually inspected the quallity of unaligned reads using FastQC \parencite{andrews2020fastqc}.
 We used Bismark to align reads to the TAIR10 and \textit{D. melanogaster} 6 reference genomes \parencite{krueger2011bismark}.
 We concatenated both reference genomes with the Lambda phage genome.
 In addition, we included the genomes of the microbial symbionts \textit{Acetobacter aceti} and \textit{Lactobacillus acidophilus}.
 We used Bismark to remove PCR-duplicated sequences and calculate the number of converted and unconverted cytosines aligning to each genomic cytosine position, and used the resulting cytosine report files to quantify overall non-conversion rates across the Drosophila and Lambda-phage genomes.
 For Arabidopsis we estimated non-conversion on the first half of the chloroplast only, because the second half shows strong homology with one of the autosomes.
 
-We used custom Python functions to quantify patterns of non-conversion within reads and across the genome, available via the package \textit{epiclinestools} from \url{https://github.com/ellisztamas/epiclinestools}.
-
+We used custom Python functions to quantify patterns of non-conversion within reads and across the genome, available via the package \textit{methlab} from \url{https://github.com/ellisztamas/methlab}.
 The computational results presented were obtained using the CLIP cluster (\url{https://clip.science}).
 
 \subsection{Statistical models to accounts for conversion errors}
 
 \subsubsection{Error rates in a binomial model} \label{sec:binomial-with-errors}
 
-Given an alignment of bisulphite-converted reads to a genome we observe a total of $n$ reads mapping to genomics cytosines within a given region. Of these, $y$ reads are observed to be unconverted cytosines and $n-y$ reads appear as converted thymines. The goal is to estimate the true mean methylation level $\theta$ which generated these data, accounting for conversion errors.
+Given an alignment of bisulphite-converted reads to a genome we observe a total of $n$ reads mapping to genomics cytosines within a given region.
+Of these, $y$ reads are observed to be unconverted cytosines and $n-y$ reads appear as converted thymines.
+The goal is to estimate the true mean methylation level $\theta$ which generated these data, accounting for conversion errors.
 
 In the absence of errors, the likelihood of the data given $\theta$ is binomially distributed as
 \begin{equation}
