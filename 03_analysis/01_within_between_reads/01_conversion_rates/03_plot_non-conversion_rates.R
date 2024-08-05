@@ -60,6 +60,7 @@ plot_nonconversion <- rbind(col0, flies, lambda) %>%
   ggplot(aes( x=Transposase, y = meth, colour = `PCR cycles`)) +
   geom_point() +
   labs(
+    x = "Relative concentration of transposase to DNA",
     y = "Non-conversion"
   ) +
   facet_grid(~organism) +
