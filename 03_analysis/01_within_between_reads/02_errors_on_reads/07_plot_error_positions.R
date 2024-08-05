@@ -28,75 +28,40 @@ import_error_positions <- function(filename){
 col0_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/Col0*positions.csv")
 col0 <- lapply(col0_files, import_error_positions) %>%
   do.call(what = 'rbind') %>%
-  mutate(filename = str_extract(filename, "Col0_[0-5]{2}_1[35]X"))
+  mutate(
+    filename = str_extract(filename, "Col0_[0-5]{2}_1[35]X"),
+    organism = "Arabidopsis"
+    )
 # Data from Drosophila
 fly_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/Fly*positions.csv")
 flies <- lapply(fly_files, import_error_positions) %>%
   do.call(what = 'rbind') %>%
-  mutate(filename = str_extract(filename, "Fly._[0-5]{2}_1[35]X"))
+  mutate(
+    filename = str_extract(filename, "Fly._[0-5]{2}_1[35]X"),
+    organism = "Drosophila"
+    )
 # Data on Lambda phage DNA included in each sample as a control.
 lambda_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/lambda_*positions.csv")
 lambda <- lapply(lambda_files, import_error_positions) %>%
-  do.call(what = 'rbind')
+  do.call(what = 'rbind') %>%
+  mutate(
+    organism = "Lambda phage"
+  )
 
-list_error_positions <- list(
-  columbia = col0 %>%
-    group_by(pos, Strand) %>%
-    summarise(
-      count = mean(count)
-    ) %>%
-    ggplot(aes( x=pos, y = count, colour=Strand)) +
-    geom_line() +
-    labs(
-      title = "Arabidopsis",
-      x = "",
-      y = "Prob. non-conversion"
-    ) +
-    theme_bw() +
-    theme(
-      plot.title = element_text(size=10)
-    ),
+plot_error_positions <- rbind(col0, flies, lambda) %>%
+  group_by(pos, Strand, organism) %>%
+  summarise(
+    count = mean(count)
+  ) %>%
+  ggplot(aes( x=pos, y = count, colour=Strand)) +
+  geom_line() +
+  labs(
+    x = "Base position along read",
+    y = "Non-conversion rate"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size=10)
+  ) +
+  facet_grid(~organism)
 
-  drosophila = flies %>%
-    group_by(pos, Strand) %>%
-    summarise(
-      count = mean(count)
-    ) %>%
-    ggplot(aes( x=pos, y = count, colour=Strand)) +
-    geom_line() +
-    labs(
-      title = "Drosophila",
-      x = "Position",
-      y = "Prob. non-conversion"
-    ) +
-    theme_bw() +
-    theme(
-      axis.title.y = element_blank(),
-      plot.title = element_text(size=10)
-    ),
-
-  lambda = lambda %>%
-    group_by(pos, Strand) %>%
-    summarise(
-      count = mean(count)
-    ) %>%
-    ggplot(aes( x=pos, y = count, colour=Strand)) +
-    geom_line() +
-    labs(
-      title = "Lambda phage",
-      x = "",
-      y = "Prob. non-conversion"
-    ) +
-    theme_bw() +
-    theme(
-      axis.title.y = element_blank(),
-      plot.title = element_text(size=10)
-    )
-)
-
-plot_error_positions <- ggarrange(
-  plotlist = list_error_positions,
-  ncol=3,
-  legend = 'right',
-  common.legend = TRUE
-)

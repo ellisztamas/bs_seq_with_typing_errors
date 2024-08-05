@@ -37,71 +37,46 @@ import_error_counts <- function(filename){
 col0_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/Col0*counts.csv")
 col0 <- lapply(col0_files, import_error_counts) %>%
   do.call(what = 'rbind') %>%
-  mutate(filename = str_extract(filename, "Col0_[0-5]{2}_1[35]X"))
+  mutate(
+    filename = str_extract(filename, "Col0_[0-5]{2}_1[35]X"),
+    organism = "Arabidopsis"
+    )
 # Data from Drosophila
 fly_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/Fly*counts.csv")
 flies <- lapply(fly_files, import_error_counts) %>%
   do.call(what = 'rbind') %>%
-  mutate(filename = str_extract(filename, "Fly._[0-5]{2}_1[35]X"))
+  mutate(
+    filename = str_extract(filename, "Fly._[0-5]{2}_1[35]X"),
+    organism = "Drosophila"
+    )
 # Data on Lambda phage DNA included in each sample as a control.
 lambda_files <- Sys.glob("03_analysis/01_within_between_reads/02_errors_on_reads/output/lambda*counts.csv")
 lambda <- lapply(lambda_files, import_error_counts) %>%
-  do.call(what = 'rbind')
+  do.call(what = 'rbind') %>%
+  mutate(
+    organism = "Lambda phage"
+  )
 
+# Propotion of reads with zero errors
 rbind(col0, flies, lambda) %>%
   filter( quantile == '0') %>%  pull(count) %>%  mean
 
+plot_error_counts <- rbind(col0, flies, lambda) %>%
+  filter(
+    quantile > 0, quantile < 101
+  ) %>%
+  mutate(
+    Transposase = fct_relevel(Transposase, '1.0')
+  ) %>%
+  ggplot(aes( x=quantile, y = count, colour=Transposase)) +
+  geom_line() +
+  labs(
+    x = "% unconverted cytosines per read",
+    y = "Proportion of reads"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size=10)
+  ) +
+  facet_grid(~organism)
 
-
-list_error_counts <- list(
-  columbia = col0 %>%
-    filter(quantile > 0, quantile < 101) %>%
-    ggplot(aes( x=quantile, y = count, colour=Transposase, linetype=`PCR cycles`)) +
-    geom_line() +
-    labs(
-      title = "Arabidopsis",
-      x = "",
-      y = "Prop. reads"
-    ) +
-    theme_bw() +
-    theme(
-      plot.title = element_text(size=10)
-      ),
-
-  drosophila = flies %>%
-    filter(quantile > 0, quantile < 101) %>%
-    ggplot(aes( x=quantile, y = count, colour=Transposase, linetype=`PCR cycles`)) +
-    geom_line() +
-    labs(
-      title = "Drosophila",
-      x = "% unconverted",
-      y = "Prop. reads"
-    ) +
-    theme_bw() +
-    theme(
-      axis.title.y = element_blank(),
-      plot.title = element_text(size=10)
-      ),
-
-
-  lambda = lambda %>%
-    filter(quantile > 0, quantile < 101) %>%
-    ggplot(aes( x=quantile, y = count, colour=Transposase, linetype=`PCR cycles`)) +
-    geom_line() +
-    labs(
-      title = "Lambda phage",
-      x = "",
-      y = "Prop. reads"
-    ) +
-    theme_bw() +
-    theme(
-      axis.title.y = element_blank(),
-      plot.title = element_text(size=10))
-)
-
-plot_error_counts <- ggarrange(
-  plotlist = list_error_counts,
-  ncol=3,
-  legend = 'right',
-  common.legend = TRUE
-  )

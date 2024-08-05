@@ -10,7 +10,7 @@ col0 <- lapply(col0_files, read_csv, col_types = "cciii") %>%
   mutate(
     organism = "Arabidopsis",
     filename = str_extract(basename(col0_files), "Col0_[0-5]{2}_1[35]X"),
-    meth = meth / (unconverted + converted)
+    meth = unconverted / (unconverted + converted)
   ) %>%
   select(organism, filename, meth)
 
@@ -25,13 +25,13 @@ for( i in 1:length(fly_files) ){
     mutate(
       organism = "Drosophila",
       filename = str_extract(basename(fly_files[i]), "Fly._[0-5]{2}_1[35]X")
-    )
+      )
 }
 flies <- do.call('rbind', flies)
 flies <- flies %>%
   group_by(organism, filename) %>%
   summarise(
-    meth = sum(meth) / sum(unconverted + converted),
+    meth = sum(unconverted, na.rm=TRUE) / sum(unconverted + converted, na.rm = TRUE),
     .groups = "drop_last"
   )
 
@@ -47,7 +47,7 @@ lambda <- lapply(lambda_files, read_csv, col_types = "cciii") %>%
     filename = paste0(
       'lambda_', str_extract(basename(lambda_files), ".{3,4}_[0-5]{2}_1[35]X")
       ),
-    meth = meth / (unconverted + converted)
+    meth = unconverted / (unconverted + converted)
   ) %>%
   select(organism, filename, meth)
 
@@ -57,7 +57,7 @@ plot_nonconversion <- rbind(col0, flies, lambda) %>%
     Transposase  = ifelse(str_extract(filename, "_[01][50]_") == "_05_", "0.5", "1.0"),
     `PCR cycles` = ifelse(str_extract(filename, "1[35]X") == "13X", "13", "15")
   ) %>%
-  ggplot(aes( x=Transposase, y = meth, colour = `PCR cycles`, )) +
+  ggplot(aes( x=Transposase, y = meth, colour = `PCR cycles`)) +
   geom_point() +
   labs(
     y = "Non-conversion"
