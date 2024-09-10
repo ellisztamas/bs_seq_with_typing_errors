@@ -35,8 +35,7 @@ plot_sim_distributions <- sims %>%
 
 pd<- position_dodge(0)
 
-# plot_sim_mse <-
-sims %>%
+plot_sim_deviation <-sims %>%
   mutate(deviation = abs(value - real_p)) %>%
   group_by(coverage, nloci, name) %>%
   summarise(
@@ -98,7 +97,7 @@ plot_bias <- sims %>%
   facet_grid(~factor(nloci))
 
 ggarrange(
-  plot_sim_distributions, plot_sim_mse, plot_bias,
+  plot_sim_distributions, plot_sim_deviation, plot_bias,
   nrow=3,
   labels="AUTO",
   common.legend = TRUE,

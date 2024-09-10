@@ -1,3 +1,5 @@
+# Align short reads to genomes
+
 Align raw reads for Columbia (the A thaliana reference strain) and Drosophila
 melanogaster to their respective reference genomes.
 
