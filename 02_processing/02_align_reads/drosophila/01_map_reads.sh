@@ -1,9 +1,6 @@
 #!/bin/bash
 
 # Map bisulphite short reads for D. melanogaster samples to the reference genome.
-
-# This will only work if you have first unzipped the data!
-# See 01_data/drosophila_drosophila/unzip_tarball.sh 
 #
 # The pipeline requires raw data to be in fastq.gz format, and a sample sheet
 # giving sample names, paths to two fastq files, and the path to the genome to 

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Script to sort the deduplicated BAM files from the methylseq pipeline
+# Script to concatenate the D. melanogaster reference genome to bacterial
+# symbiont, phage lambda and puc19 genomes, then bisulphite convert the
+# resulting fasta file.
+
 # Tom Ellis, 12th September 2023
 
 #SBATCH --job-name=prepare_drosophila_genome
