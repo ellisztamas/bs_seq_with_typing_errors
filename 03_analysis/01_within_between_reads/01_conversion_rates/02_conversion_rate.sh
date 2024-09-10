@@ -21,10 +21,8 @@
 #SBATCH --mem=30gb
 #SBATCH --array=0-11
 
-module load build-env/f2022
-module load anaconda3/2023.03
-source $EBROOTANACONDA3/etc/profile.d/conda.sh
-conda activate epiclines
+# Load conda environment and set working directory, if used. 
+source setup.sh
 
 date
 

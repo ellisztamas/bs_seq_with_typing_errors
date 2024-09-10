@@ -1,5 +1,13 @@
 # Change log
 
+## Updated conda env and main README
+
+Updated environment.yml to create a specific environment for this repo.
+Added setup.sh to activate this, and added `source setup.sh` to scripts that 
+need it.
+
+Updated main readme file to cover these updates, and to cover the NCBI upload.
+
 ## Rearrange to use data from NCBI
 
 10th September 2024

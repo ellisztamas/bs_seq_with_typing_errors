@@ -22,10 +22,8 @@
 #SBATCH --qos=medium
 #SBATCH --array=1-4 # Start at 1, because the sample sheet has a header row
 
-module load build-env/f2022
-module load anaconda3/2023.03
-source $EBROOTANACONDA3/etc/profile.d/conda.sh
-conda activate epiclines
+# Load conda environment and set working directory, if used. 
+source setup.sh
 
 # working directory
 scratch=/scratch-cbe/users/$(whoami)/columbia

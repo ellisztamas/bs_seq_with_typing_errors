@@ -14,10 +14,8 @@
 #SBATCH --output=03_analysis/01_within_between_reads/slurm/%x-%a.out
 #SBATCH --error=03_analysis/01_within_between_reads/slurm/%x-%a.err
 
-module load build-env/f2022
-module load anaconda3/2023.03
-source $EBROOTANACONDA3/etc/profile.d/conda.sh
-conda activate epiclines
+# Load conda environment and set working directory, if used. 
+source setup.sh
 
 date
 

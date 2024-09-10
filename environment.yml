@@ -1,26 +1,23 @@
-name: epiclines
+name: bserrors
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
   - python>=3.9.6
+  - conda-forge::ncurses
   - ipykernel
   - pandas
-  - numpy
+  - numpy==1.26
   - scipy
-  - seaborn
-  - pytest
-  - bismark>=24.0
+  - bioconda::bismark
   - fastqc
   - trim-galore
   - multiqc
-  - fastq-screen
   - bcftools
-  - picard
-  - pip
+  - parallel
   - samtools
-  - pysam
+  - daler::sratoolkit
+  - pip
   - pip:
-    - biopython
-    - git+https://github.com/ellisztamas/methlab.git#egg=argh
+    - methlab
