@@ -53,7 +53,7 @@ trim_galore_args="--clip_r1 15 --clip_r2 15 --three_prime_clip_R1 9 --three_prim
 bismark_args="--local --non_directional --strandID"
 methylation_extractor_args="--cytosine_report --CX_context --no_header --no_overlap --comprehensive --gzip --scaffolds"
 
-02_processing/bismark_pipeline.sh \
+02_processing/02_align_reads/bismark_pipeline.sh \
     --sample "${sample_names[$SLURM_ARRAY_TASK_ID]}" \
     --read1  "${read1_col[$SLURM_ARRAY_TASK_ID]}" \
     --read2  "${read2_col[$SLURM_ARRAY_TASK_ID]}" \

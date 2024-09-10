@@ -1,6 +1,5 @@
-Align raw reads for Columbia (the A thaliana reference strain), Drosophila
-melanogaster, and individuals from the cross between two A. thaliana accessions
-to their respective reference genomes.
+Align raw reads for Columbia (the A thaliana reference strain) and Drosophila
+melanogaster to their respective reference genomes.
 
 This is done with the bash script `bismark_pipeline.sh` which:
 1. Trims reads with Trim Galore!
@@ -8,4 +7,3 @@ This is done with the bash script `bismark_pipeline.sh` which:
 3. Aligns reads with Bismark
 4. Removes PCR duplicates and sorts the resulting BAM file
 5. Creates a genome-wide cytosine report with Bismark's cytosine extractor.
-

@@ -1,5 +1,5 @@
 sample,fastq_1,fastq_2
-Col0_05_15X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_15X_R2_001.fastq.gz
-Col0_10_15X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_15X_R2_001.fastq.gz
-Col0_05_13X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_05_13X_R2_001.fastq.gz
-Col0_10_13X,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/columbia/fastq/Col0_10_13X_R2_001.fastq.gz
+Col0_05_15X,01_data/columbia_drosophila/SRR30505873_1.fastq.gz,01_data/columbia_drosophila/SRR30505873_2.fastq.gz
+Col0_10_15X,01_data/columbia_drosophila/SRR30505871_1.fastq.gz,01_data/columbia_drosophila/SRR30505871_2.fastq.gz
+Col0_05_13X,01_data/columbia_drosophila/SRR30505874_1.fastq.gz,01_data/columbia_drosophila/SRR30505874_2.fastq.gz
+Col0_10_13X,01_data/columbia_drosophila/SRR30505872_1.fastq.gz,01_data/columbia_drosophila/SRR30505872_2.fastq.gz

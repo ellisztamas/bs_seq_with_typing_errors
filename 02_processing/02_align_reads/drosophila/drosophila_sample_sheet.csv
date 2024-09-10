@@ -1,9 +1,9 @@
 sample,fastq_1,fastq_2
-Fly1_05_15X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly1_05_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly1_05_15X_R2_001.fastq.gz
-Fly2_05_15X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly2_05_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly2_05_15X_R2_001.fastq.gz
-Fly3_10_15X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly3_10_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly3_10_15X_R2_001.fastq.gz
-Fly4_10_15X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly4_10_15X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly4_10_15X_R2_001.fastq.gz
-Fly1_05_13X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly1_05_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly1_05_13X_R2_001.fastq.gz
-Fly2_05_13X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly2_05_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly2_05_13X_R2_001.fastq.gz
-Fly3_10_13X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly3_10_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly3_10_13X_R2_001.fastq.gz
-Fly4_10_13X,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly4_10_13X_R1_001.fastq.gz,/scratch-cbe/users/thomas.ellis/drosophila/fastq/Fly4_10_13X_R2_001.fastq.gz
+Fly1_05_15X,01_data/columbia_drosophila/SRR30539250_1.fastq.gz,01_data/columbia_drosophila/SRR30539250_2.fastq.gz
+Fly2_05_15X,01_data/columbia_drosophila/SRR30539248_1.fastq.gz,01_data/columbia_drosophila/SRR30539248_2.fastq.gz
+Fly3_10_15X,01_data/columbia_drosophila/SRR30539246_1.fastq.gz,01_data/columbia_drosophila/SRR30539246_2.fastq.gz
+Fly4_10_15X,01_data/columbia_drosophila/SRR30539244_1.fastq.gz,01_data/columbia_drosophila/SRR30539244_2.fastq.gz
+Fly1_05_13X,01_data/columbia_drosophila/SRR30539251_1.fastq.gz,01_data/columbia_drosophila/SRR30539251_2.fastq.gz
+Fly2_05_13X,01_data/columbia_drosophila/SRR30539249_1.fastq.gz,01_data/columbia_drosophila/SRR30539249_2.fastq.gz
+Fly3_10_13X,01_data/columbia_drosophila/SRR30539247_1.fastq.gz,01_data/columbia_drosophila/SRR30539247_2.fastq.gz
+Fly4_10_13X,01_data/columbia_drosophila/SRR30539245_1.fastq.gz,01_data/columbia_drosophila/SRR30539245_2.fastq.gz

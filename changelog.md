@@ -1,5 +1,18 @@
 # Change log
 
+## Rearrange to use data from NCBI
+
+10th September 2024
+
+I packaged the data and uploaded it to NCBI, and had a general tidy up of the raw data.
+
+- Added script to retrieve raw reads from NCBI
+- Changed sample sheets to use NCBI accession names.
+- Updated readme files for the data folders for genomes and Illumina raw reads
+- Added files with TE lists.
+- Corrected read alignment scripts to use the correct path to the bismark script.
+- Deleted folder related to the crosses.
+
 ## Added figure 4
 
 Scripts and plots to create figure 4.
