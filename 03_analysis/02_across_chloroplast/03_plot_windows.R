@@ -18,7 +18,7 @@ import_windows <- function(paths){
   mC_in_windows <- do.call('rbind', mC_in_windows) %>%
     mutate(
       n = unconverted + converted,
-      theta = meth /n
+      theta = unconverted /n
     ) %>%
     filter(
       chr == "chloroplast", start <=75000, context == "total", n > 0)

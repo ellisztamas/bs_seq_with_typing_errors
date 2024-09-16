@@ -2,6 +2,8 @@
 
 ## Updated conda env and main README
 
+10th September 2024
+
 Updated environment.yml to create a specific environment for this repo.
 Added setup.sh to activate this, and added `source setup.sh` to scripts that 
 need it.
