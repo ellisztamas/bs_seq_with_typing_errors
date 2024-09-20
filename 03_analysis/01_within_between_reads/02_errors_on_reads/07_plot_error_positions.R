@@ -57,7 +57,7 @@ plot_error_positions <- rbind(col0, flies, lambda) %>%
   geom_line() +
   labs(
     x = "Base position along read",
-    y = "Non-conversion rate"
+    y = "Non-conversion"
   ) +
   theme_bw() +
   theme(

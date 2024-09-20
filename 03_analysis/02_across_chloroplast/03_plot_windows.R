@@ -74,7 +74,7 @@ ggarrange(
 ggsave(
   filename = "04_manuscript/figure2.eps",
   device = "eps",
-  units = "cm", height = 10, width= 13
+  units = "cm", height = 10, width= 13.2
 )
 
 # cor( col0$n, col0$theta, method = 's')

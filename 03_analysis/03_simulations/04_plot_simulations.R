@@ -107,5 +107,5 @@ ggarrange(
 ggsave(
   filename = "04_manuscript/figure3.eps",
   device =cairo_ps,
-  units = "cm", width = 16.9, height = 18
+  units = "cm", width = 13.2, height = 16
 )

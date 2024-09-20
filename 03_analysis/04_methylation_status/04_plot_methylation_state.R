@@ -51,7 +51,7 @@ meth_states %>%
 ggsave(
   filename = "04_manuscript/figure4.eps",
   device="eps",
-  units = "cm", width = 16.9, height = 8
+  units = "cm", width = 13.2, height = 8
 )
 
 meth_states %>%

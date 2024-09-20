@@ -7,7 +7,7 @@
 # https://bioinformaticsworkbook.org/dataAcquisition/fileTransfer/sra.html#gsc.tab=0
 #
 # Note that this uses the packages sratoolkit, parallel and Entrez command line 
-# tools. The first two of these are given as modules for the 
+# tools.
 #
 # Input:
 #    NCBI project number
