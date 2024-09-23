@@ -9,6 +9,20 @@ cytosine-conversion errors" by Ellis et al. (2024)
 The manuscript describes errors associated with a tagmentation-based protocol to
 perform bisulphite sequencing, and how to deal with them.
 
+* [Folder overview](#folder-overview)
+* [Data](#data)
+    + [Illumina data](#illumina-data)
+    + [Genome files](#genome-files)
+* [Getting the code to run](#getting-the-code-to-run)
+    + [SLURM environment](#slurm-environment)
+    + [Dependencies](#dependencies)
+        - [Conda environment](#conda-environment)
+        - [Packages to download raw data](#packages-to-download-raw-data)
+        - [methlab](#methlab)
+* [Author information](#author-information)
+* [Acknowledgements](#acknowledgements)
+* [License](#license)
+
 ## Folder overview
 
 - `01_data` gives raw reads and fasta files to align to.
@@ -116,4 +130,4 @@ The computational results presented were obtained using the CLIP cluster (https:
 
 ## License
 
-MIT license
+This work is released under the Creative Commons BY 4.0 license.
