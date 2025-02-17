@@ -25,11 +25,21 @@ outdir=03_analysis/02_across_chloroplast/output
 mkdir -p $outdir
 
 outfile=$(basename ${infile/CX_report.txt.gz/windows.csv})
+outfile_11=$(basename ${infile/CX_report.txt.gz/windows_11bp.csv})
 
+# Summarise data in 147-bp windows
 python 03_analysis/02_across_chloroplast/01_mC_in_windows.py \
     --input $infile \
     --output $outdir/$outfile \
-    --window 150 \
+    --window 147 \
     --chromosome "chloroplast"
+
+# Summarise data in 11bp windows.
+python 03_analysis/02_across_chloroplast/01_mC_in_windows.py \
+    --input $infile \
+    --output $outdir/$outfile_11 \
+    --window 11 \
+    --chromosome "chloroplast"
+
 
 date

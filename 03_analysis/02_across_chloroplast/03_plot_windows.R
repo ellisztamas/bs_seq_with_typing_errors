@@ -26,7 +26,7 @@ import_windows <- function(paths){
   return(mC_in_windows)
 }
 # Import data files
-col0 <- import_windows(Sys.glob("03_analysis/02_across_chloroplast/output/Col0*"))
+col0 <- import_windows(Sys.glob("03_analysis/02_across_chloroplast/output/Col0*windows.csv"))
 
 # Plot non-conversion across windows.
 plot_col0_windows <- col0 %>%
@@ -76,52 +76,3 @@ ggsave(
   device = "eps",
   units = "cm", height = 10, width= 13.2
 )
-
-# cor( col0$n, col0$theta, method = 's')
-#
-# for( sample in unique(col0$name)){
-#   print(
-#     cor( col0$n[col0$name == sample], col0$theta[col0$name == sample], method = 's')
-#   )
-# }
-# for( sample in unique(col0$name)){
-#   print(
-#     cor( col0$ncytosines[col0$name == sample], col0$theta[col0$name == sample], method = 's')
-#   )
-# }
-#
-# for( sample1 in unique(col0$name)){
-#   for( sample2 in unique(col0$name)){
-#     print(
-#       cor( col0$theta[col0$name == sample1], col0$theta[col0$name == sample2], method = 's')
-#     )
-#   }
-# }
-#
-#
-# Compare variation between windows to binimal draws between windows
-# tibble(
-  # id = col0$name,
-#   obs = col0$theta,
-#   sim = sapply(col0$n, rbinom, n=1, prob = mean(col0$theta) ) / col0$n
-# ) %>%
-#   pivot_longer(obs:sim) %>%
-#   group_by(id, name) %>%
-#   summarise(
-#     sd = sd(value)
-#   )
-# # Plot this as a box plot
-# tibble(
-#     id = col0$name,
-#     obs = col0$theta,
-#     sim = sapply(col0$n, rbinom, n=1, prob = mean(col0$theta) ) / col0$n
-#   ) %>%
-#   pivot_longer(obs:sim) %>%
-#   ggplot(aes( x = name, y = value, colour= id)) +
-#   geom_boxplot() +
-#   theme_bw() +
-#   theme(legend.position="none")
-
-  # ggplot(aes( x= value, colour=id, linetype=name)) +
-  # geom_freqpoly()
-

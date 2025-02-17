@@ -19,7 +19,7 @@
 #SBATCH --error=slurm/%x.err
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=8
-#SBATCH --time=01:00:00
+#SBATCH --time=08:00:00
 
 module load build-env/f2021
 module load sra-toolkit/3.0.0-centos_linux64
@@ -40,12 +40,14 @@ runinfo=$outdir/runinfo.csv
 # List of SRR numbers
 srr_numbers=$outdir/SRR_numbers.txt
 
+
 # === Script === #
 
-	
+# Create a list of samples to download
 esearch -db sra -query $project | efetch -format runinfo > $runinfo
 cat $runinfo | cut -d "," -f 1 | tail -n +2 > $srr_numbers
 
-cat $srr_numbers | parallel fastq-dump --split-files --origfmt --gzip -X 1000 --outdir $outdir {}
+# Retrieve from NCBI
+cat $srr_numbers | parallel fastq-dump --split-files --origfmt --gzip --outdir $outdir {}
 
 rm $runinfo $srr_numbers
