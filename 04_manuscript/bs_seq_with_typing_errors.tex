@@ -1,4 +1,4 @@
-\documentclass[10pt,letterpaper,draft]{article}
+\documentclass[10pt,draft,letterpaper]{article}
 \usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
 
 % amsmath and amssymb packages, useful for mathematical formulas and symbols
@@ -124,7 +124,7 @@ Magnus Nordborg\textsuperscript{1*}
 % Please keep the abstract below 300 words
 \section*{Abstract}
 Bisulphite treatment of DNA converts unmethylated cytosines to thymine, and is a common method to infer the methylation status of cytosines when coupled with sequencing.
-'Tagmentation' approaches to bisulphite sequencing use a transposase to simultaneously make double-stranded breaks and ligate adaptors to the resulting fragments, allowing for higher throughput with less starting material.
+`Tagmentation' approaches to bisulphite sequencing use a transposase to simultaneously make double-stranded breaks and ligate adaptors to the resulting fragments, allowing for higher throughput with less starting material.
 However, it has also been noted that certain tagmentation protocols have an unusually high number unmethylated cytosines that are not converted to thymine.
 Here we describe this phenomenon in detail, and find that results are consistent with single strand nicks by the transposase, followed by strand displacement of part or all of the DNA fragment, leading to erroneous incorporation of methylated cytosines.
 Nevertheless we show that these errors can be accounted for in downstream analysis and need not impede biological conclusions.
@@ -157,7 +157,7 @@ This gives a quantitative estimate of the proportion of cells in which each cyto
 
 A major limitation of bisulphite treatment is that the process itself damages DNA, meaning that substantial amounts of starting material are required for adequate results.
 Early studies provided the first genome-wide surveys of methylation profiles, but relied on sonication of DNA followed by a delicate adaptor-ligation step (e.g. \cite{meissner2005reduced, cokus2008shotgun, lister2009human}).
-Aiming to make the procedure more easily scalable to high-throughput samples, 'tagmentation' approaches use a Tn5 transposase to simultaneously cut the DNA and ligate adaptors and PCR primers to the fragments \cite{wang2013tagmentation}.
+Aiming to make the procedure more easily scalable to high-throughput samples, `tagmentation' approaches use a Tn5 transposase to simultaneously cut the DNA and ligate adaptors and PCR primers to the fragments \cite{wang2013tagmentation}.
 In the original protocol, the transposase is loaded with a single adaptor, and the second adaptor is annealed by by oligo replacement, followed by repair of the nine-base-pair single-stranded gap left by the transposase \cite{adey2012ultra}.
 This allows for several orders of magnitude less starting material than sonication-based protocols, but the oligo-replacement step remains the most challenging step.
 Lu \textit{et al.} \cite{lu2015improved} modified this approach to load the transposome with two methylated adaptors, and to replace the oligo-replacement and gap repair steps with a single strand displacement reaction by a \textit{Bst} polymerase.
@@ -274,8 +274,10 @@ This model would account for those reads where every cytosine is unconverted (Fi
 We speculate that the partially non-converted reads are due a second nicking process that occurs randomly throughout the body of a DNA fragment.
 Because the \textit{Bst} polymerase replicates in 5\`{} to 3\`{} direction, random nick positions would systematically bias non-conversion towards downstream cytosines.
 This is consistent with the observation that non-conversion errors are more common towards the 3` end of reads (Fig~\ref{fig:reads}C).
-It is also known that Tn5 is known to preferentially insert at guanine and cytosine positions \cite{goryshin1998tn, green2012insertion}, which is consistent with the correlation between non-conversion rates and GC content (Fig~\ref{fig:uncertainty}C).
-However, it is not known whether a bias in insertion site reflects the same process as a bias in the location of single-strand nicks.
+Tn5 is known to preferentially insert at guanine and cytosine positions \cite{goryshin1998tn, green2012insertion},
+which is consistent with the correlation between non-conversion rates and GC content (Fig~\ref{fig:uncertainty}C).
+Moreover, there is evidence that Tn5 insertion sites tend to be spaced at 5-bp intervals \cite{goryshin1998tn}, which matches the periodicity in non-conversion errors in \textit{D.~melanogaster} (Fig \ref{fig:reads}C).
+However, it is not known whether patterns of insertion site bias reflect the same process as a bias in the location of single-strand nicks.
 Although these data do not allow us to say with certainty what is causing non-conversion errors, this model of the combined action of single-strand nicks followed by strand displacement seems to be a reasonable working hypothesis to explain non-conversion errors.
 
 It is worth considering the implications of this model for other applications.
@@ -446,7 +448,7 @@ We carried out statistical analyses in \textit{R} 4.3.3 using \textit{RStudio} 2
 
 The computational results presented were obtained using the CLIP cluster (\url{https://clip.science}).
 
-\subsection*{Statistical models to accounts for conversion errors}
+\subsection*{Statistical models to account for conversion errors}
 
 \subsubsection*{Error rates in a binomial model} \label{sec:binomial-with-errors}
 
@@ -457,7 +459,7 @@ The goal is to estimate the true mean methylation level $\theta$ which generated
 In the absence of errors, the likelihood of the data given $\theta$ is binomially distributed as
 \begin{equation}
     \label{eqn:classic-binomial}
-    \Pr(y | \theta) = {n \choose y} \theta^y(1-\theta)^{n-y}
+    \Pr(y | \theta) = \binom{n}{y} \theta^y(1-\theta)^{n-y}
 \end{equation}
 with mean $\theta=y/n$.
 Data are not perfect, so we would like to incorporate two error terms:
@@ -529,7 +531,7 @@ In this case $\epsilon_1=\epsilon_2=0$, but $\theta>0$, and hence
 where $a^*$ and $b^*$ are the beta shape parameters for the distribution of true methylation levels.
 This is only valid if it is possible to estimate these shape parameters, for example from external data from libraries prepared using a different protocol for which conversion error rates are negligible.
 
-However, as long as the true methylation level is substantially larger error rates, we can simplify the problem by asking whether observed unconverted reads are compatible with non-conversion errors alone, or with more methylation than that.
+However, as long as the true methylation level is substantially larger than error rates, we can simplify the problem by asking whether observed unconverted reads are compatible with non-conversion errors alone, or with more methylation than that.
 A simpler approach is to model 
 \begin{equation}
     g(p) = \Pr(y | p, n) \Pr(p \leq P | a,b)
@@ -766,10 +768,8 @@ Ellis TJ, Nizhynska V, Pisupati R, Moll\'a-Morales A, Nordborg M.
 \newblock The National Center for Biotechnology Information (NCBI) Sequence Read Archive (SRA); 2023. BioProject: PRJNA1155267.
 
 \bibitem{ellis2023codefrom}
-Ellis TJ, Nizhynska V, Pisupati R, Moll\'a-Morales A, Nordborg M. Code from: Bisulphite sequecing in the presence of cytosine-conversion errors; 2023.
-\newblock Available from: \url{https://doi.org/10.5281/zenodo.13767189}.
-
-\end{thebibliography}
+Ellis TJ, Nizhynska V, Pisupati R, Moll\'a-Morales A, Nordborg M. Code from: Bisulphite sequecing in the presence of cytosine-conversion errors; 2025.
+\newblock Available from: \url{https://doi.org/10.5281/zenodo.14883552}.
 
 \end{thebibliography}
 
