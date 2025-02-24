@@ -332,7 +332,7 @@ First, as noted above, there seems to be substantial variation in error rates be
 If we try to use the chloroplast to gauge error rates at the rest of the genome, this implies that there is substantial uncertainty around the error rate at any specific window.
 This will tend to overestimate true methylation when the error rate is above the mean error rate, and vice versa.
 Second, the binomial sampling process itself introduces uncertainty about true methylation level.
-This is especially true when the number of 'binomial trials' is small, such as when only a small region of the genome is examined and/or when sequencing coverage is low.
+This is especially true when the number of `binomial trials' is small, such as when only a small region of the genome is examined and/or when sequencing coverage is low.
 Variation in error rates and sample size should be expected to hinder our ability to estimate mean methylation accurately.
 
 We used simulations to investigate the practical significance of conversion errors and binomial sampling on estimates of mean methylation.
@@ -511,7 +511,7 @@ Estimates for shape parameters are then:
 
 \subsubsection*{Classification of methylation state} \label{sec:meth-state}
 
-In some cases it makes biological sense to classify the 'state' of a region as methylated or unmethylated rather than quantify methylation level.
+In some cases it makes biological sense to classify the `state' of a region as methylated or unmethylated rather than quantify methylation level.
 If we assume false conversion errors ($\epsilon_2$) are negligible, this can be achieved by comparing the evidence that the proportion of unconverted cytosines $p$ is drawn from distribution $f(p)$ generating false non-conversion errors, or from an alternative distribution $g(p)$ that reflects real biological processes.
 
 First, $f(p)$ can be described as a combination of the binomial and beta processes described above (Eqs~\ref{eqn:binom-with-errors} and \ref{eqn:beta-dist}).
@@ -537,7 +537,7 @@ A simpler approach is to model
     g(p) = \Pr(y | p, n) \Pr(p \leq P | a,b)
 \end{equation}
 where $\Pr(p \leq P | a,b)$ is the cumulative density function of the beta distribution of error rates.
-This approaches zero when the proportion of unconverted reads is small, and approaches one when the number of unconverted reads is more than can be accounted for by $f(p)$, and thus readily distinguishes 'high' and 'low' non-conversion rates.
+This approaches zero when the proportion of unconverted reads is small, and approaches one when the number of unconverted reads is more than can be accounted for by $f(p)$, and thus readily distinguishes `high' and `low' non-conversion rates.
 This has the advantage that we need only know $a$ and $b$, which can be estimated in the presence of cytosine non-conversion errors.
 For this reason, we use this estimate of $g(p)$ in this manuscript.
 
