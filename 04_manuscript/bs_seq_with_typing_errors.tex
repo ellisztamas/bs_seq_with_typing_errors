@@ -123,7 +123,6 @@ Magnus Nordborg\textsuperscript{1*}
 \end{flushleft}
 % Please keep the abstract below 300 words
 \section*{Abstract}
-Bisulphite treatment of DNA converts unmethylated cytosines to thymine, and is a common method to infer the methylation status of cytosines when coupled with sequencing.
 `Tagmentation' approaches to bisulphite sequencing use a transposase to simultaneously make double-stranded breaks and ligate adaptors to the resulting fragments, allowing for higher throughput with less starting material.
 However, it has also been noted that certain tagmentation protocols have an unusually high number unmethylated cytosines that are not converted to thymine.
 Here we describe this phenomenon in detail, and find that results are consistent with single strand nicks by the transposase, followed by strand displacement of part or all of the DNA fragment, leading to erroneous incorporation of methylated cytosines.
@@ -197,7 +196,7 @@ High cytosine non-conversion rates do not seem to be constrained to any species,
 
 \begin{figure}
   % \begin{center}
-    \includegraphics{figure1.eps}
+    % \includegraphics{figure1.eps}
     \caption{
         {\bf Cytosine non-conversion within and between reads on unmethylated DNA from \textit{A.~thaliana}, \textit{D.~melanogaster} and Lambda phage}.
         For \textit{A.~thaliana}, data are shown for reads aligning to the first 75kb of chloroplast.
@@ -242,7 +241,7 @@ These observations indicate that the variation in non-conversion across the chlo
 
 \begin{figure*}
   \begin{center}
-    \includegraphics{figure2.eps}
+    % \includegraphics{figure2.eps}
     \caption{
         {\bf Non-conversion errors vary at the kilobase scale.}
         Cytosine non-conversion across the first half of the chloroplast in four independent replicate library preparations of the \emph{A.~thaliana} accession Col-0.
@@ -311,7 +310,7 @@ Given a good estimate of error rates, it is straightforward adjust estimates to 
 
 \begin{figure*}
   \begin{center}
-    \includegraphics{figure3.eps}
+    % \includegraphics{figure3.eps}
     \caption{
         {\bf Estimates of mean methylation in simulated data using different estimates of the non-conversion error rate.}
         Plots show the effect of combining data over 1, 10 or 100 loci with 200 cytosines each for increasing sequencing depth.
@@ -369,17 +368,6 @@ Transposable elements are associated with methylation in all three of these cont
 Zhang \textit{et al.} \cite{zhang2020natural} describe a continuum from unmethylated to gene-body-like methylation (GBM-like) to TE-like methylation.
 Since these three states are likely maintained by distinct biological pathways it makes sense to model them as distinct methylation states.
 
-\begin{figure*}
-    \centering
-    \includegraphics{figure4.eps}
-    \caption{
-        {\bf Methylation state calls in windows of the chloroplast, genes, CMT-targetted TEs and RdDM-targetted TEs.}
-        Plots show the posterior probabilities that a single window/gene/TE is in each state.
-        Only those features with at least one aligned read in each sequence context are shown.
-    }
-    \label{fig:meth-state}
-\end{figure*}
-
 We categorised methylation status for bisulphite data in the presence of substantial non-conversion errors in our \emph{A.~thaliana} samples.
 We used a model that compares the evidence that the counts of observed converted and unconverted reads in the three sequence contexts are consistent with non-conversion errors only, or a mixture of errors and real cytosine methylation, corresponding to truly zero and non-zero methylation levels respectively.
 We applied this model to (1) windows of the chloroplast, which should be unmethylated; (2) annotated transposable elements known to be actively regulated by the CMT2 and RdDM pathways \cite{stroud2013comprehensive} and likely to be TE-like methylated; (3) coding genes, likely reflecting a mix of all three methylation states \cite{zhang2020natural}.
@@ -390,6 +378,17 @@ The observed states of the chloroplast and TEs showed a strong tendency towards 
 Likewise, 94.9\% of CMT2-targetted TEs and 86.9\% of RdDM-targettted TEs were TE-like methylated.
 We found nearly identical results when we sum over the probabilities that each window/TE is in each state rather than make hard calls about methylation state (Fig~\ref{fig:meth-state}).
 The methylation state of unmethylated DNA and transposable elements can be inferred despite non-conversion errors.
+
+\begin{figure*}
+    \centering
+    % \includegraphics{figure4.eps}
+    \caption{
+        {\bf Methylation state calls in windows of the chloroplast, genes, CMT-targetted TEs and RdDM-targetted TEs.}
+        Plots show the posterior probabilities that a single window/gene/TE is in each state.
+        Only those features with at least one aligned read in each sequence context are shown.
+    }
+    \label{fig:meth-state}
+\end{figure*}
 
 Methylation states of genes were also qualitatively similar to previous reports.
 47.8\% of genes were most likely to be unmethylated, 36.9\% GBM-like methylated and 15.3\% TE-like methylated.
@@ -569,19 +568,6 @@ We note that much higher methylation levels would be expected for CpG islands or
 
 For each locus we drew a value for $\epsilon_1$ from a beta distribution describing variation in error rates across the genome.
 To estimate biologically realistic shape parameters for this distribution we estimated the mean and variation in non-conversion rates in 150 bp windows across the chloroplast for one of the \emph{A.~thaliana} samples, and calculated beta shape parameters by method of moments (Eqs~\ref{eqn:beta-a} and \ref{eqn:beta-b}).
-
-\section*{Data and code availability}
-
-Sequencing data generated in this study are available in the National Center for Biotechnology Information (NCBI) Sequence Read Archive (SRA) under the accession number PRJNA1155267 \cite{ellis2023datafrom}.
-Code to run the analyses is available from Github (\url{https://github.com/ellisztamas/bs_seq_with_typing_errors}) and Zenodo \cite{ellis2023codefrom}.
-
-\section*{Author contributions}
-
-TJE: data curation, processing and analysis, study design, writing.
-VN: study design, preparation of sequencing libraries.
-RP: data processing.
-AMM: study design, coordination of resources, critically revised the manuscript.
-MN: supervision of the project, critically revised the manuscript.
 
 \section*{Acknowledgements}
 
